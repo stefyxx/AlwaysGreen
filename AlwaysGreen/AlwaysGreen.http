@@ -1,0 +1,6 @@
+@AlwaysGreen_HostAddress = http://localhost:5276
+
+GET {{AlwaysGreen_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
