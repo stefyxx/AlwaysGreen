@@ -10,7 +10,7 @@ namespace AlwaysGreen.Domain.Enums
     public enum RolesEnum
     {
         Particular = 1,
-        Business = 2,
+        Company = 2,
         Store = 4,
         Depot = 8,
     }

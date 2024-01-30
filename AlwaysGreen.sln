@@ -3,15 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysGreen", "AlwaysGreen\AlwaysGreen.csproj", "{729C2FC4-1F91-401C-94BD-6C150DB9C770}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlwaysGreen", "AlwaysGreen\AlwaysGreen.csproj", "{729C2FC4-1F91-401C-94BD-6C150DB9C770}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysGreen.SecurityJWT", "AlwaysGreen.SecurityJWT\AlwaysGreen.SecurityJWT.csproj", "{4BE61EF4-C0AC-4EEA-A00E-9125CB7F7B4D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlwaysGreen.SecurityJWT", "AlwaysGreen.SecurityJWT\AlwaysGreen.SecurityJWT.csproj", "{4BE61EF4-C0AC-4EEA-A00E-9125CB7F7B4D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysGreen.BLL", "AlwaysGreen.BLL\AlwaysGreen.BLL.csproj", "{31CB25CA-F50C-4D22-B7BB-4FE4529B6A82}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlwaysGreen.BLL", "AlwaysGreen.BLL\AlwaysGreen.BLL.csproj", "{31CB25CA-F50C-4D22-B7BB-4FE4529B6A82}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysGreen.DAL", "AlwaysGreen.DAL\AlwaysGreen.DAL.csproj", "{B42D887D-643B-4E1C-8C5B-705428FD6ED3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlwaysGreen.DAL", "AlwaysGreen.DAL\AlwaysGreen.DAL.csproj", "{B42D887D-643B-4E1C-8C5B-705428FD6ED3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlwaysGreen.Domain", "AlwaysGreen.Domain\AlwaysGreen.Domain.csproj", "{1168459F-53CE-47A6-97C7-F1FCF8F8545A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlwaysGreen.Domain", "AlwaysGreen.Domain\AlwaysGreen.Domain.csproj", "{1168459F-53CE-47A6-97C7-F1FCF8F8545A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Éléments de solution", "Éléments de solution", "{C0F39308-F9EA-495F-B118-4F2B728978C0}"
+	ProjectSection(SolutionItems) = preProject
+		TODO.txt = TODO.txt
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -14,9 +14,14 @@ namespace AlwaysGreen.Domain.Entities
         public int? Id { get; set; }
         public string StreetName { get; set; }
         public string StreetNumber { get; set; }
+
+        #region nb:
+        //a volte hai Apartment --> corrisp a 13A
+        //altre hai unit + unitnb --> ipercondomini
         public string? Apartment { get; set; }
         public string? Unit { get; set; }
         public string? UnitNumber { get; set; }
+        #endregion
         public string City { get; set; }
 
         [Column(TypeName = "char(4)")]

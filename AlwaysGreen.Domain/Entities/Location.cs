@@ -9,7 +9,10 @@ using System.Threading.Tasks;
 
 namespace AlwaysGreen.Domain.Entities
 {
-    public abstract class Site
+    //pt raccolta or pt dove spendere il buono (store) , or company (es: Delaize--> store + company)
+    //aut Deposito
+    //MAI user (Particulier)
+    public class Location
     {
         [Key]
         public int Id { get; set; }
@@ -31,7 +34,17 @@ namespace AlwaysGreen.Domain.Entities
 
 
         //es Delaize puo' essere sia un enterprise che un magasin
-        public abstract RolesEnum[] Roles { get; }
+        public RolesEnum[] Roles { get; set; }
+
+        #region Store
+
+        //é un pt di raccolta?
+        public bool IsPickUpPoint { get; set; } = true;
+
+        //é un pt dove spendere i buoni?
+        public bool IsStorePoint { get; set; }
+
+        #endregion
 
         #region FK
         public int? AddressId { get; set; }

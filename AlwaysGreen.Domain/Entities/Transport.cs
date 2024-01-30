@@ -7,19 +7,17 @@ using System.Threading.Tasks;
 
 namespace AlwaysGreen.Domain.Entities
 {
-    public class Emptybottle
+    public class Transport
     {
         [Key]
         public int Id { get; set; }
-        public string TypeName { get; set; } = null!;
 
-        public int Quantity { get; set; } = 0;
-
-        public float? Prix { get; set; }
+        public DateTime Date { get; set; } = DateTime.Now;
 
         #region FK
         public List<Delivery> Deliveries { get; set; } = [];
-        public List<Transport> Transports { get; set; } = [];
+        public List<Emptybottle> Emptybottles { get; set; } = [];
         #endregion
+
     }
 }

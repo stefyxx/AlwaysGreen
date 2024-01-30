@@ -1,0 +1,6 @@
+1)
+registrazione:
+
+TODO controllo SIRET--> una company, es delaize ha tutto lo stesso SIREM e diversi NIC
+
+TODO riflettere/ Login --> se ho 2 ruoli? do 2 login diversi? --> No, fatto con array di ruoli

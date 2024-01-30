@@ -15,21 +15,19 @@ namespace AlwaysGreen.Domain.Entities
         public int? Id { get; set; }
         public string Username { get; set; }
         public byte[] Password { get; set; }
-        public RolesEnum Role {  get; set; }
+
+        //se hai 2 ruoli?
+        public RolesEnum[] Roles {  get; set; }
 
         #region FK
+
         public int? ParticularId { get; set; }
         [ForeignKey("ParticularId")]
         public Particular? Particular { get; set; }
-        public int? DepoId { get; set; }
-        [ForeignKey("DepoId")]
-        public Depot? Depot { get; set; }
-        public int? BusinessId { get; set; }
-        [ForeignKey("BusinessId")]
-        public Business? Business { get; set; }
-        public int? StoreId { get; set; }
-        [ForeignKey("StoreId")]
-        public Store? Store { get; set; }
+        public int? LocationId { get; set; }
+        [ForeignKey("LocationId")]
+        public Location? Depot { get; set; }
+
         #endregion
 
     }
