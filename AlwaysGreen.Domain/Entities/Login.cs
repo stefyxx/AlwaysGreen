@@ -12,7 +12,7 @@ namespace AlwaysGreen.Domain.Entities
     public class Login
     {
         [Key]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string Username { get; set; }
         public byte[] Password { get; set; }
 

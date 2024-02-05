@@ -12,7 +12,7 @@ namespace AlwaysGreen.Domain.Entities
     public class Particular 
     {
         [Key]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Column(TypeName = "varchar(100)")]
         public string FirstName { get; set; }

@@ -12,7 +12,7 @@ namespace AlwaysGreen.Domain.Entities
     //pt raccolta or pt dove spendere il buono (store) , or company (es: Delaize--> store + company)
     //aut Deposito
     //MAI user (Particulier)
-    public class Location
+    public abstract class Location
     {
         [Key]
         public int Id { get; set; }
@@ -29,32 +29,14 @@ namespace AlwaysGreen.Domain.Entities
         [Column(TypeName = "varchar(75)")]
         public string Email { get; set; }
 
-        //numéro de TVA
-        public string VATnumber { get; set; }
-
-
         //es Delaize puo' essere sia un enterprise che un magasin
-        public RolesEnum[] Roles { get; set; }
-
-        #region Store
-
-        //é un pt di raccolta?
-        public bool IsPickUpPoint { get; set; } = true;
-
-        //é un pt dove spendere i buoni?
-        public bool IsStorePoint { get; set; }
-
-        #endregion
+        public virtual RolesEnum[] Roles { get; set; }
 
         #region FK
         public int? AddressId { get; set; }
         [ForeignKey("AddressId  ")]
         public Address? Address { get; set; }
 
-        public int? SiretId { get; set; }
-        [ForeignKey("SiretId")]
-        public Siret? Siret { get; set; }
-        
         #endregion
 
     }

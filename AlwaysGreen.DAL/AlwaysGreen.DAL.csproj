@@ -6,4 +6,13 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\AlwaysGreen.BLL\AlwaysGreen.BLL.csproj" />
+    <ProjectReference Include="..\AlwaysGreen.Domain\AlwaysGreen.Domain.csproj" />
+  </ItemGroup>
+
 </Project>

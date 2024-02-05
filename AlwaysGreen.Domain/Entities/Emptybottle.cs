@@ -11,6 +11,8 @@ namespace AlwaysGreen.Domain.Entities
     {
         [Key]
         public int Id { get; set; }
+
+        //TODO --> enum CategoryEmptybottle
         public string TypeName { get; set; } = null!;
 
         public int Quantity { get; set; } = 0;

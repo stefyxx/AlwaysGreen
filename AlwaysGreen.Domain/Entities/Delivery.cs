@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AlwaysGreen.Domain.Entities
 {
-    //tab intermediaria Many to many con properties in più
+    //tab intermediaria Many to many con properties in più: tra Transport e Emptybottle
     
     public class Delivery
     {
@@ -21,7 +21,7 @@ namespace AlwaysGreen.Domain.Entities
 
         #endregion
 
-        public int QuantityTransported { get; set; }
+        public int QuantityTransported { get; set; } = 0;
 
         public float? Prix { get; set; }
 

@@ -11,7 +11,7 @@ namespace AlwaysGreen.Domain.Entities
     public class Address
     {
         [Key]
-        public int? Id { get; set; }
+        public int Id { get; set; }
         public string StreetName { get; set; }
         public string StreetNumber { get; set; }
 

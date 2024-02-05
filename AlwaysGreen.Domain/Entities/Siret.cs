@@ -11,7 +11,7 @@ namespace AlwaysGreen.Domain.Entities
     public class Siret
     {
         [Key]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public string Siren { get; set; }
 
