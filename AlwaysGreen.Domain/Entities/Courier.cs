@@ -21,5 +21,16 @@ namespace AlwaysGreen.Domain.Entities
         //numéro de TVA
         public string VATnumber { get; set; }
 
+        #region FK
+        public int AddressId { get; set; }
+
+        [ForeignKey("AddressId")]
+        public Address Address { get; set; }
+
+        public int TransportId { get; set; }
+        [ForeignKey("TransportId")]
+        public Transport Transport { get; set; }
+        #endregion
+
     }
 }

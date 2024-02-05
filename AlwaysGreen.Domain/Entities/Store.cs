@@ -25,9 +25,9 @@ namespace AlwaysGreen.Domain.Entities
         #endregion
 
         #region FK
-        public int? SiretId { get; set; }
+        public int SiretId { get; set; }
         [ForeignKey("SiretId")]
-        public Siret? Siret { get; set; }
+        public Siret Siret { get; set; }
         #endregion
     }
 }

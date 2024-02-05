@@ -25,14 +25,18 @@ namespace AlwaysGreen.Domain.Entities
 
         [Column(TypeName = "varchar(75)")]
         public string Email { get; set; }
-        public int? AddressId {  get; set; }
-
-        [ForeignKey("AddressId")]
-        public Address? Address { get; set; }
 
         public RolesEnum[] Roles
         {
             get => [RolesEnum.Particular];
-        } 
+        }
+
+        #region FK
+        public int AddressId {  get; set; }
+
+        [ForeignKey("AddressId")]
+        public Address Address { get; set; }
+
+        #endregion
     }
 }

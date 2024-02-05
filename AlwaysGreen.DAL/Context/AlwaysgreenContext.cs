@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -27,11 +28,14 @@ namespace AlwaysGreen.DAL.Context
         //Tab intermediaria di many to many --> DbSet? : si perché ha delle properties in più
         public DbSet<Delivery> Deliveries { get; set; }
 
-
-
-
         public AlwaysgreenContext(DbContextOptions options) : base(options) { }
-        
-     
+
+        //Seeders
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<T>().HasData(DataSeeders.InitMyT());
+        //}
+
+
     }
 }
