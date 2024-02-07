@@ -33,9 +33,13 @@ namespace AlwaysGreen.Domain.Entities
         public virtual RolesEnum[] Roles { get; set; }
 
         #region FK
-        public int? AddressId { get; set; }
+        public int AddressId { get; set; }
         [ForeignKey("AddressId  ")]
-        public Address? Address { get; set; }
+        public Address Address { get; set; }
+
+        public int? TransportId { get; set; }
+        [ForeignKey("TransportId")]
+        public Transport? Transport { get; set; }
 
         #endregion
 

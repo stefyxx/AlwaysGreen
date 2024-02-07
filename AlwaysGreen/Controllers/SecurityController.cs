@@ -23,11 +23,13 @@ namespace AlwaysGreen.Controllers
 
             if(l.Roles.Any())
                 {
+                    //todo--> differente modo di recuperare la mail, dip se particulier o Location
 
+                    // --> CreateToken (string username, string identifier, string email, params string[] roles)
+                    //string token = _jwtManager.CreateToken(l.Email, l.Id.ToString(), l.Email, l.Roles.ToString());
                 }
-                // --> CreateToken (string username, string identifier, string email, params string[] roles)
-                string token = _jwtManager.CreateToken(l.Email, l.Id.ToString(), l.Email, l.Roles.ToString());
-                return Ok(new { Token = token });
+                //return Ok(new { Token = token });
+                return Ok();
             }
             catch (ValidationException)
             {

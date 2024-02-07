@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 
 namespace AlwaysGreen.Domain.Entities
 {
-    //tab intermediaria Many to many con properties in più: tra Transport e Emptybottle
+    //tab intermediaria Many to Many -- con properties in più -- : tra Transport e Emptybottle
+    //gli Id non sono nulli, perché nel momento che effettuo un trasporto con delle bottiglie, solo allora riempio questa tab
     
     public class Delivery
     {

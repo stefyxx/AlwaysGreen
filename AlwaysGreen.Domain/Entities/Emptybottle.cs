@@ -19,7 +19,8 @@ namespace AlwaysGreen.Domain.Entities
 
         public float? Prix { get; set; }
 
-        #region FK
+        #region FK Many to Many
+        //puo' essere = [] perché é relaz 0-N
         public List<Delivery> Deliveries { get; set; } = [];
         public List<Transport> Transports { get; set; } = [];
         #endregion

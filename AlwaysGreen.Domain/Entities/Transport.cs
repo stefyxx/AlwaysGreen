@@ -15,8 +15,15 @@ namespace AlwaysGreen.Domain.Entities
         public DateTime Date { get; set; } = DateTime.Now;
 
         #region FK
+
+        #region Many to May
+        //puo' essere = [] perché é relaz 0-N
         public List<Delivery> Deliveries { get; set; } = [];
         public List<Emptybottle> Emptybottles { get; set; } = [];
+
+        #endregion
+
+        public List<Courier> Courriers { get; set; } = [];
         #endregion
 
     }
