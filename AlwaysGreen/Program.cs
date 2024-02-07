@@ -11,6 +11,8 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
+using AlwaysGreen.DAL.Repositories;
+using AlwaysGreen.BLL.Services;
 
 
 namespace AlwaysGreen
@@ -72,6 +74,12 @@ namespace AlwaysGreen
 
             //psw
             builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+            //altri servizi:
+            builder.Services.AddScoped<IParticularRepository, ParticularRepository>();
+            builder.Services.AddScoped<ParticularServices>();
+
+
 
 
             //security
