@@ -17,7 +17,7 @@ namespace AlwaysGreen.Domain.Entities
         [Key]
         public int Id { get; set; }
         //Nome particolare--> nome dell'agenzia
-        public string? Name { get; set; }
+        public string? AgencyName { get; set; }
 
         //for depot --> null
         public string? CompanyName { get; set; }

@@ -1,5 +1,14 @@
 
+using AlwaysGreen.BLL.Infrastructs;
+using AlwaysGreen.BLL.Interfaces;
+using AlwaysGreen.DAL.Context;
+using AlwaysGreen.SecurityJWT;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.IdentityModel.Tokens.Jwt;
+using System.Text;
 using System.Text.Json.Serialization;
 
 namespace AlwaysGreen
@@ -47,6 +56,36 @@ namespace AlwaysGreen
                     }
                 });
             });
+
+
+            builder.Services.AddDbContext<AlwaysgreenContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
+
+            // security
+            builder.Services.AddScoped<JwtSecurityTokenHandler>();
+            builder.Services.AddScoped<JwtManager>();
+            builder.Services.AddSingleton(builder.Configuration.GetSection("Jwt").Get<JwtManager.JwtConfig>());
+
+
+            //psw
+            builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+
+            //security
+            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = builder.Configuration["Jwt:Issuer"],
+                        ValidAudience = builder.Configuration["Jwt:Audience"],
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Signature"]))
+                    };
+                });
+
 
             var app = builder.Build();
 

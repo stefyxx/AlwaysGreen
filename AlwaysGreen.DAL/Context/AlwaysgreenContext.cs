@@ -31,10 +31,22 @@ namespace AlwaysGreen.DAL.Context
         public AlwaysgreenContext(DbContextOptions options) : base(options) { }
 
         //Seeders
-        //protected override void OnModelCreating(ModelBuilder modelBuilder)
-        //{
-        //    modelBuilder.Entity<T>().HasData(DataSeeders.InitMyT());
-        //}
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<T>().HasData(DataSeeders.InitMyT());
+
+            //Many to Many:
+            modelBuilder.Entity<Emptybottle>()
+                .HasMany(e => e.Transports)
+                .WithMany(e => e.Emptybottles)
+                .UsingEntity<Delivery>(
+                //l => l.HasOne<Transport>().WithMany(e => e.Deliveries),
+                //r => r.HasOne<Emptybottle>().WithMany(e => e.Deliveries)
+                );
+
+            // qui' specifico che PK é una key composta: dalle due keyes
+            modelBuilder.Entity<Delivery>().HasKey(d => new { d.TransportId, d.EmptybottleId });
+        }
 
 
     }
