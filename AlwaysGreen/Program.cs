@@ -1,4 +1,4 @@
-
+ï»¿
 using AlwaysGreen.BLL.Infrastructs;
 using AlwaysGreen.BLL.Interfaces;
 using AlwaysGreen.DAL.Context;
@@ -10,6 +10,8 @@ using Microsoft.OpenApi.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
+
 
 namespace AlwaysGreen
 {
@@ -18,10 +20,12 @@ namespace AlwaysGreen
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            builder.Services.AddDbContext<AlwaysgreenContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("Default") ?? throw new InvalidOperationException("Connection string 'Default' not found.")));
 
             // Add services to the container.
 
-            //1- per avere il vaue_string dell'enum e non il n°
+            //1- per avere il vaue_string dell'enum e non il nï¿½
             builder.Services.AddControllers().AddJsonOptions(o => o.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter()));
 
             builder.Services.AddEndpointsApiExplorer();
