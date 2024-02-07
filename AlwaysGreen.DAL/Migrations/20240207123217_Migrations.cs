@@ -83,6 +83,7 @@ namespace AlwaysGreen.DAL.Migrations
                     LastName = table.Column<string>(type: "varchar(50)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "varchar(15)", nullable: false),
                     Email = table.Column<string>(type: "varchar(75)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -106,6 +107,7 @@ namespace AlwaysGreen.DAL.Migrations
                     PhoneNumber = table.Column<string>(type: "varchar(15)", nullable: false),
                     Email = table.Column<string>(type: "varchar(75)", nullable: false),
                     VATnumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     TransportId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -162,6 +164,7 @@ namespace AlwaysGreen.DAL.Migrations
                     PhoneNumber = table.Column<string>(type: "varchar(15)", nullable: false),
                     Email = table.Column<string>(type: "varchar(75)", nullable: false),
                     Roles = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsActive = table.Column<bool>(type: "bit", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
                     TransportId = table.Column<int>(type: "int", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),

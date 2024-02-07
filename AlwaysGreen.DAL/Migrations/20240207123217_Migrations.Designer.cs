@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlwaysGreen.DAL.Migrations
 {
     [DbContext(typeof(AlwaysgreenContext))]
-    [Migration("20240207102210_Migrations")]
+    [Migration("20240207123217_Migrations")]
     partial class Migrations
     {
         /// <inheritdoc />
@@ -81,6 +81,9 @@ namespace AlwaysGreen.DAL.Migrations
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("varchar(75)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -176,6 +179,9 @@ namespace AlwaysGreen.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(75)");
 
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("varchar(15)");
@@ -253,6 +259,9 @@ namespace AlwaysGreen.DAL.Migrations
                     b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("varchar(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
 
                     b.Property<string>("LastName")
                         .IsRequired()

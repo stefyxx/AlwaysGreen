@@ -31,6 +31,8 @@ namespace AlwaysGreen.Domain.Entities
             get => [RolesEnum.Particular];
         }
 
+        public bool IsActive { get; set; } = true;
+
         #region FK
         public int AddressId {  get; set; }
 

@@ -32,6 +32,8 @@ namespace AlwaysGreen.Domain.Entities
         //es Delaize puo' essere sia un enterprise che un magasin
         public virtual RolesEnum[] Roles { get; set; }
 
+        public bool IsActive { get; set; } = true;
+
         #region FK
         public int AddressId { get; set; }
         [ForeignKey("AddressId  ")]

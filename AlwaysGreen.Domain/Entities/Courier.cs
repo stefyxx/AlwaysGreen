@@ -21,6 +21,8 @@ namespace AlwaysGreen.Domain.Entities
         //numéro de TVA
         public string VATnumber { get; set; }
 
+        public bool IsActive { get; set; } = true;
+
         #region FK
         public int AddressId { get; set; }
 
