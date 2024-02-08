@@ -13,5 +13,8 @@ namespace AlwaysGreen.BLL.Interfaces
         void Update(Address address);
         void Delete(Address address);
         Address? Find(params object[] id);
+
+        //control if the address exist --> here you HAVEN'T Id
+        Address? FindIsExisting(Address address);
     }
 }

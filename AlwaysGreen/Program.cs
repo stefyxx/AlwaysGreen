@@ -78,6 +78,10 @@ namespace AlwaysGreen
             //altri servizi:
             builder.Services.AddScoped<IParticularRepository, ParticularRepository>();
             builder.Services.AddScoped<ParticularServices>();
+            builder.Services.AddScoped<ILoginRepository, LoginRepository>();
+            //builder.Services.AddScoped<LoginServices>();
+            builder.Services.AddScoped<IAddressRepisitory, AddressRepository>();
+
 
 
 

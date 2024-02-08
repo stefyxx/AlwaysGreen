@@ -23,19 +23,26 @@ namespace AlwaysGreen.BLL.Services
         {
             byte[] hash = _passwordHasher.Hash(Email + password);
 
-            //Add inserisce e ritorna Entity con id
-            Address a = _addressRepository.Add(new Address()
+            //Add inserisce e ritorna Entity con id --> 
+            // prima controllo che non esista già
+            Address? addressExisting = _addressRepository.FindIsExisting(address);
+            Address a = new Address();
+            if (addressExisting == null)
             {
-                // Id dato da inserted
-                StreetName = address.StreetName,
-                StreetNumber = address.StreetNumber,
-                Apartment = address.Apartment ??  null,
-                Unit = address.Unit ?? null,
-                UnitNumber = address.UnitNumber ?? null,
-                City = address.City,
-                ZipCode = address.ZipCode,
-                Country = address.Country
-            });
+                a = _addressRepository.Add(new Address()
+                {
+                    // Id dato da inserted
+                    StreetName = address.StreetName,
+                    StreetNumber = address.StreetNumber,
+                    Apartment = address.Apartment ??  null,
+                    Unit = address.Unit ?? null,
+                    UnitNumber = address.UnitNumber ?? null,
+                    City = address.City,
+                    ZipCode = address.ZipCode,
+                    Country = address.Country
+                });
+            }
+
 
             Particular p = _particularRepository.Add(new Particular 
             { 
@@ -45,8 +52,8 @@ namespace AlwaysGreen.BLL.Services
                 IsActive = true,
                 Email = Email,
                 //Roles = [RolesEnum.Particular], --> lo fa automaticamente C# --> NO INTO DB --> TODO: puo' dare problemi? ho login che ce l'ha
-                AddressId = a.Id,
-                Address = a, //indirizzo inserito, con buon Id
+                AddressId = (addressExisting is null) ? a.Id : addressExisting.Id, //addressExisting.Id ?? a.Id,
+                Address = (addressExisting is null)? a : addressExisting, //indirizzo inserito, con buon Id
             });
 
             //se riesco a inserire un particular, posso creare il login 

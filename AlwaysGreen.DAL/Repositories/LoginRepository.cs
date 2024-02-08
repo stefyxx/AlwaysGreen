@@ -14,9 +14,9 @@ namespace AlwaysGreen.DAL.Repositories
     {
         public LoginRepository(AlwaysgreenContext context) : base(context){ }
 
-        public Login? Get(string username)
+        public Login? Get(string username) // + psw
         {
-            throw new NotImplementedException();
+            return _table.FirstOrDefault(l => l.Username == username);
         }
     }
 }
