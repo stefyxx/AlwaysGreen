@@ -39,7 +39,7 @@ namespace AlwaysGreen.Controllers
         [HttpPost]
         public IActionResult Post([FromBody] RegisteredParticularDTO d)
         {
-            //registered a particular --> return void, ma io voglio un IActionResult che mi da ok de creato
+            //registered a particular --> return void, ma io voglio un IActionResult che mi da ok se creato
             try
             {
                 Particular data = _particularServices.Register(

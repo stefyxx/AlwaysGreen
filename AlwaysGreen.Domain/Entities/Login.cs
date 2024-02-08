@@ -13,8 +13,8 @@ namespace AlwaysGreen.Domain.Entities
     {
         [Key]
         public int Id { get; set; }
-        public string Username { get; set; }
-        public byte[] Password { get; set; }
+        public required string Username { get; set; }
+        public required byte[] Password { get; set; }
 
         //se hai 2 ruoli?
         public RolesEnum[] Roles {  get; set; }

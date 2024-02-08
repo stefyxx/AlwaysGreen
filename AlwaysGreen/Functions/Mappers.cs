@@ -26,6 +26,7 @@ namespace AlwaysGreen.Functions
             if (data is null) return null;
             return new Address()
             {
+                Id = 0,
                 StreetName = data.StreetName,
                 StreetNumber = data.StreetNumber,
                 Apartment = data.Apartment ?? null,

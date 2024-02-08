@@ -23,7 +23,7 @@ namespace AlwaysGreen.DAL.Repositories
                 .ToList();
         }
 
-        public override Particular? Add(Particular entity, int AddressId)
+        public Particular? Insert(Particular entity, int AddressId, int LoginId)
         {
             //return base.Add(entity);
             //first add address e recuperi Id
@@ -33,6 +33,7 @@ namespace AlwaysGreen.DAL.Repositories
             return _table
                 .Include(a => a.Address)
                 .Where(t => t.AddressId == AddressId)
+                //.Include(l => l.  .Equals(LoginId))
                 .FirstOrDefault();
         }
     }

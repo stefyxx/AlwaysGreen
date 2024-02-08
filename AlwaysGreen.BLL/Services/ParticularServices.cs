@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace AlwaysGreen.BLL.Services
 {
-    public class ParticularServices(IParticularRepository _particularRepository, IPasswordHasher _passwordHasher, IAddressRepisitory _addressRepository)
+    public class ParticularServices(IParticularRepository _particularRepository, IPasswordHasher _passwordHasher, IAddressRepisitory _addressRepository, ILoginRepository _loginRepository)
     {
         //getAll
         public List<Particular> GetAll()
@@ -23,21 +23,46 @@ namespace AlwaysGreen.BLL.Services
         {
             byte[] hash = _passwordHasher.Hash(Email + password);
 
+            //Add inserisce e ritorna Entity con id
             Address a = _addressRepository.Add(new Address()
             {
-
-
+                // Id dato da inserted
+                StreetName = address.StreetName,
+                StreetNumber = address.StreetNumber,
+                Apartment = address.Apartment ??  null,
+                Unit = address.Unit ?? null,
+                UnitNumber = address.UnitNumber ?? null,
+                City = address.City,
+                ZipCode = address.ZipCode,
+                Country = address.Country
             });
-            return _particularRepository.Add(new Particular 
+
+            Particular p = _particularRepository.Add(new Particular 
             { 
                 FirstName = FirstName,
                 LastName = LastName,
                 PhoneNumber = PhoneNumber,
                 IsActive = true,
                 Email = Email,
-                Address = address,
-
+                //Roles = [RolesEnum.Particular], --> lo fa automaticamente C# --> NO INTO DB --> TODO: puo' dare problemi? ho login che ce l'ha
+                AddressId = a.Id,
+                Address = a, //indirizzo inserito, con buon Id
             });
+
+            //se riesco a inserire un particular, posso creare il login 
+            if(p.Id > 0) 
+            {
+                Login l = _loginRepository.Add(new Login()
+                {
+                    Username = Username,
+                    Password = hash,
+                    Roles = [RolesEnum.Particular],
+                    ParticularId = p.Id
+                });
+            }
+            else { throw new Exception(message:"particular mal inserito"); };
+
+            return p;
         }
     }
 }
