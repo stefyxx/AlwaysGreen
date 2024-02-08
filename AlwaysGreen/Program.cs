@@ -13,6 +13,8 @@ using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
 using AlwaysGreen.DAL.Repositories;
 using AlwaysGreen.BLL.Services;
+using System.Net.Mail;
+using Microsoft.AspNetCore.Components.Web;
 
 
 namespace AlwaysGreen
@@ -67,6 +69,7 @@ namespace AlwaysGreen
             builder.Services.AddDbContext<AlwaysgreenContext>(o => o.UseSqlServer(builder.Configuration.GetConnectionString("Default")));
 
             // security
+            builder.Services.AddScoped<SecurityServices>();
             builder.Services.AddScoped<JwtSecurityTokenHandler>();
             builder.Services.AddScoped<JwtManager>();
             builder.Services.AddSingleton(builder.Configuration.GetSection("Jwt").Get<JwtManager.JwtConfig>());
@@ -82,6 +85,12 @@ namespace AlwaysGreen
             //builder.Services.AddScoped<LoginServices>();
             builder.Services.AddScoped<IAddressRepisitory, AddressRepository>();
 
+            //mail
+            //builder.Services.AddScoped<HttpClient>();
+            ////builder.Services.AddScoped<HtmlRenderer>();     //perché ho creato una mail == View.razor
+            //builder.Services.AddScoped<SmtpClient>();
+            //builder.Services.AddScoped<IMailer, Mailer>();
+            //builder.Services.AddSingleton(builder.Configuration.GetSection("Mailer").Get<Mailer.MailerConfig>());
 
 
 
@@ -113,7 +122,8 @@ namespace AlwaysGreen
             }
 
             app.UseHttpsRedirection();
-
+            //security
+            //app.UseAuthentication();
             app.UseAuthorization();
 
 
