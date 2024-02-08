@@ -39,10 +39,17 @@ namespace AlwaysGreen.Domain.Entities
         [ForeignKey("AddressId  ")]
         public Address Address { get; set; }
 
-        public int? TransportId { get; set; }
-        [ForeignKey("TransportId")]
-        public Transport? Transport { get; set; }
+        public int? TransportFromId { get; set; }
+        [ForeignKey("TransportFromId")]
+        public Transport? TransportFrom { get; set; }
 
+        public int? TransportToId { get; set; }
+        [ForeignKey("TransportToId")]
+        public Transport? TransportTo { get; set; }
+
+
+        //che in realtà ne avrà uno solo
+        public List<Login> Logins { get; set; } = [];
         #endregion
 
     }

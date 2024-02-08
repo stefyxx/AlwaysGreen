@@ -100,5 +100,15 @@ namespace AlwaysGreen.BLL.Services
             }
 
         }
+
+        public Particular? Find(params object[] id) 
+        {
+            return _particularRepository.Find(id);
+        }
+
+        public void Update(Particular particular)
+        {
+            _particularRepository.Update(particular);
+        }
     }
 }

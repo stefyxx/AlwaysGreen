@@ -13,5 +13,9 @@ namespace AlwaysGreen.BLL.Interfaces
         public List<Particular> GetAll();
 
         public Particular Add(Particular p);
+
+        public Particular? Find(params object[] id);
+
+        public void Update(Particular p);
     }
 }

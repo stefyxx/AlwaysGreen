@@ -14,6 +14,14 @@ namespace AlwaysGreen.DAL.Repositories
     {
         public ParticularRepository(AlwaysgreenContext context) : base(context) { }
 
+        public Particular? Find(params object[] id)
+        {
+            return _table
+                .Include(a => a.Address)
+                .Include(l=> l.Logins)
+                .FirstOrDefault(c => c.Id == (int)id[0]);
+        }
+
         public List<Particular> GetAll()
         {
             //ONLY active --+ IsActive == true
@@ -29,12 +37,21 @@ namespace AlwaysGreen.DAL.Repositories
             //first add address e recuperi Id
             //poi inserisci particular
 
-
+            //_context.SaveChanges();
             return _table
                 .Include(a => a.Address)
                 .Where(t => t.AddressId == AddressId)
-                //.Include(l => l.  .Equals(LoginId))
+                .Include(l => l.Logins.First(l => l.Id == LoginId))
                 .FirstOrDefault();
+        }
+
+        public override void Update(Particular p)
+        {
+            _table
+                .Include(a => a.Address)
+                .Include(l => l.Logins);
+
+            _context.SaveChanges();
         }
     }
 }

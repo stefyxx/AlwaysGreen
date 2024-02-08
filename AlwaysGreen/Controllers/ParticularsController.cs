@@ -5,6 +5,7 @@ using AlwaysGreen.Functions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
+using System.Security.Claims;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -46,9 +47,9 @@ namespace AlwaysGreen.Controllers
                     d.FirstName,d.LastName,d.PhoneNumber, d.Email, 
                     Mappers.ToDomain(d.Address), d.Password, d.Username);
 
-                //ParticularResultDTO result = data.Select(Mappers.ToDTO);
-                //return Created("ok", result);
-                return Ok();
+                ParticularResultDTO result = Mappers.ToDTO(data);
+                return Created("ok", result);
+                //return Ok();
             }
             catch (ValidationException ex) 
             {
@@ -67,11 +68,27 @@ namespace AlwaysGreen.Controllers
         }
 
 
-        // PUT api/<ParticularsController>/5
-        [HttpPut("{id}")]
-        //[Authorize(Roles = "Particular")]
-        public void Put(int id, [FromBody] string value)
+        // PUT api/<ParticularsController>/5  --> [HttpPut("{id}")]
+        [HttpPut]
+        [Authorize(Roles = "Particular")]
+        public IActionResult Update([FromBody] RegisteredParticularDTO updateDTO)
         {
+            bool isConnected = User != null;
+            if (isConnected)
+            {
+                //se user esiste realmente in in BD
+                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+                Particular? p = _particularServices.Find(int.Parse(userId.Value));
+                if (p != null)
+                {
+                    //posso updatare i valori ricevuto nel Body della request:
+                    Particular updatedUser = _particularServices.Update(p);
+
+                    return Ok();
+                }else throw new Exception("No user found");
+
+            }
+            else return Unauthorized();
         }
 
         // DELETE api/<ParticularsController>/5
