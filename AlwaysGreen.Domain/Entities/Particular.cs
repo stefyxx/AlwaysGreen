@@ -39,8 +39,10 @@ namespace AlwaysGreen.Domain.Entities
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
 
+        public int LoginId { get; set; }
         //che in realtà ne avrà uno solo
-        public List<Login> Logins { get; set; } = [];
+        [ForeignKey("LoginId")]
+        public Login Login { get; set; }
 
         #endregion
     }

@@ -11,7 +11,9 @@ using System.Transactions;
 
 namespace AlwaysGreen.BLL.Services
 {
-    public class ParticularServices(IParticularRepository _particularRepository, IPasswordHasher _passwordHasher, IAddressRepisitory _addressRepository, ILoginRepository _loginRepository//,
+    public class ParticularServices(
+        IParticularRepository _particularRepository, IPasswordHasher _passwordHasher, 
+        IAddressRepisitory _addressRepository, ILoginRepository _loginRepository//,
         //HtmlRenderer _renderer, Mailer _mailer
         )
     {
@@ -106,9 +108,16 @@ namespace AlwaysGreen.BLL.Services
             return _particularRepository.Find(id);
         }
 
+        //override methode update
         public void Update(Particular particular)
         {
             _particularRepository.Update(particular);
+        }
+        public Particular? myUpdate(Particular particular, string username, string email, Address address, string phoneNumber, string psw)
+        {
+            byte[] hash = _passwordHasher.Hash(email + psw);
+
+            return _particularRepository.myUpdate(particular, username, email, address, phoneNumber, hash);
         }
     }
 }

@@ -19,6 +19,7 @@ namespace AlwaysGreen.DAL.Context
 
         public virtual TEntity? FindById(params object[] id)
         {
+            //(int)id[0]
             return _context.Set<TEntity>().Find(id);
 
         }

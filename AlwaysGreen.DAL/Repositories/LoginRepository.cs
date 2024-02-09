@@ -18,5 +18,21 @@ namespace AlwaysGreen.DAL.Repositories
         {
             return _table.FirstOrDefault(l => l.Username == username);
         }
+        public override Login Add(Login entity)
+        {
+            //return base.Add(entity);
+            if(entity.Particular != null)
+            {
+                _table.Include(p => p.Particular);
+                _context.SaveChanges();
+            }
+            if(entity.Depot != null)
+            {
+                _table .Include(p => p.Depot);
+                _context.SaveChanges();
+            }
+            return base.FindById(entity.Id);
+                
+        }
     }
 }

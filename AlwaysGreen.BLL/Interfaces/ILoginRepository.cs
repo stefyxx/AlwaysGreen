@@ -10,6 +10,6 @@ namespace AlwaysGreen.BLL.Interfaces
     public interface ILoginRepository
     {
         public Login? Get(string username);
-        public Login Add(Login address);
+        public Login Add(Login login);
     }
 }

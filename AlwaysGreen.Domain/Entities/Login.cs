@@ -21,11 +21,7 @@ namespace AlwaysGreen.Domain.Entities
 
         #region FK
 
-        public int? ParticularId { get; set; }
-        [ForeignKey("ParticularId")]
         public Particular? Particular { get; set; }
-        public int? LocationId { get; set; }
-        [ForeignKey("LocationId")]
         public Location? Depot { get; set; }
 
         #endregion

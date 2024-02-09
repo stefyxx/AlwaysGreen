@@ -18,7 +18,7 @@ namespace AlwaysGreen.DAL.Repositories
         {
             return _table
                 .Include(a => a.Address)
-                .Include(l=> l.Logins)
+                .Include(l=> l.Login)
                 .FirstOrDefault(c => c.Id == (int)id[0]);
         }
 
@@ -34,24 +34,54 @@ namespace AlwaysGreen.DAL.Repositories
         public Particular? Insert(Particular entity, int AddressId, int LoginId)
         {
             //return base.Add(entity);
-            //first add address e recuperi Id
-            //poi inserisci particular
 
             //_context.SaveChanges();
             return _table
                 .Include(a => a.Address)
                 .Where(t => t.AddressId == AddressId)
-                .Include(l => l.Logins.First(l => l.Id == LoginId))
+                .Include(l => l.Login)
+                .Where(l=> l.LoginId == LoginId)
                 .FirstOrDefault();
         }
+
 
         public override void Update(Particular p)
         {
             _table
                 .Include(a => a.Address)
-                .Include(l => l.Logins);
+                .Include(l => l.Login);
 
             _context.SaveChanges();
+        }
+        
+        //recupero p con Id perché é preso dal User connected
+        public Particular? myUpdate(Particular p, string username, string email, Address address, string phoneNumber, byte[] psw)
+        {
+            p.Email = email;
+            p.Address = address;
+            p.PhoneNumber = phoneNumber;
+            p.Login.Username = username;
+            p.Login.Password = psw;
+            Update(p);
+
+            //return p;
+
+            //x essere sicuri che ha cambiato
+            Particular? updatedp = Find(p.Id);
+            if (updatedp != null) return updatedp;
+            else throw new Exception("It was not possible to modify yours datas");
+
+            //Particular? newp = _table
+            //   .Include(a => a.Address).Where(t => t.AddressId == AddressId)
+            //   .Include(l => l.Login).Where(l=> l.LoginId == LoginId) 
+            //   .Where(pa => p.Id == pa.Id)
+            //   .FirstOrDefault();
+            //if (newp != null)
+            //{
+            //    _context.SaveChanges();
+            //    return newp;
+            //}
+            //else throw new Exception("It was not possible to modify yours datas");
         }
     }
 }

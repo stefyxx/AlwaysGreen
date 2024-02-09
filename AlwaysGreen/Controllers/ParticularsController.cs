@@ -71,7 +71,7 @@ namespace AlwaysGreen.Controllers
         // PUT api/<ParticularsController>/5  --> [HttpPut("{id}")]
         [HttpPut]
         [Authorize(Roles = "Particular")]
-        public IActionResult Update([FromBody] RegisteredParticularDTO updateDTO)
+        public IActionResult Update([FromBody] UpdateParticularDTO updateDTO)
         {
             bool isConnected = User != null;
             if (isConnected)
@@ -81,12 +81,24 @@ namespace AlwaysGreen.Controllers
                 Particular? p = _particularServices.Find(int.Parse(userId.Value));
                 if (p != null)
                 {
-                    //posso updatare i valori ricevuto nel Body della request:
-                    Particular updatedUser = _particularServices.Update(p);
+                    Address newAddress = new Address() 
+                    { 
+                        Id= p.AddressId,
+                        StreetName = updateDTO.Address.StreetName,
+                        StreetNumber = updateDTO.Address.StreetNumber,
+                        Apartment = updateDTO.Address.Apartment ?? null,
+                        Unit = updateDTO.Address.Unit ?? null,
+                        UnitNumber = updateDTO.Address.UnitNumber ?? null,
+                        City = updateDTO.Address.City,
+                        ZipCode = updateDTO.Address.ZipCode,
+                        Country = updateDTO.Address.Country
+                    };
+                    //posso updatare i valori ricevuto nel Body della request: 
+                    Particular? updatedUser = _particularServices.myUpdate(
+                        p, updateDTO.Username, updateDTO.Email, newAddress, updateDTO.PhoneNumber, updateDTO.Password);
 
-                    return Ok();
+                    return Ok(updatedUser);
                 }else throw new Exception("No user found");
-
             }
             else return Unauthorized();
         }
@@ -96,6 +108,7 @@ namespace AlwaysGreen.Controllers
         //[Authorize(Roles = "Particular")]
         public void Delete(int id)
         {
+
         }
     }
 }
