@@ -11,5 +11,6 @@ namespace AlwaysGreen.BLL.Interfaces
     {
         public Login? Get(string username);
         public Login Add(Login login);
+        public Login? Find(int loginId);
     }
 }

@@ -69,16 +69,19 @@ namespace AlwaysGreen.Controllers
 
 
         // PUT api/<ParticularsController>/5  --> [HttpPut("{id}")]
+        //[Authorize(Roles = "Particular")]
         [HttpPut]
-        [Authorize(Roles = "Particular")]
+        [Authorize]
         public IActionResult Update([FromBody] UpdateParticularDTO updateDTO, [FromQuery]string? cancelLink)
         {
             bool isConnected = User != null;
             if (isConnected)
             {
+                //string? email = User.FindFirstValue(ClaimTypes.Email);
+
                 //se user esiste realmente in in BD
-                var userId = User.FindFirst(ClaimTypes.NameIdentifier);
-                Particular? p = _particularServices.Find(int.Parse(userId.Value));
+                int loginId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                Particular? p = _particularServices.FindWithLoginId(loginId);
                 if (p != null)
                 {
                     Address newAddress = new Address() 

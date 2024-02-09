@@ -14,6 +14,22 @@ namespace AlwaysGreen.DAL.Repositories
     {
         public LoginRepository(AlwaysgreenContext context) : base(context){ }
 
+        public Login? Find(int loginId)
+        {
+            Login? l = base.FindById(loginId);
+            if (l != null)
+            {
+                if (l.Roles.Contains(Domain.Enums.RolesEnum.Particular))
+                {
+                    return _table.Include(p => p.Particular).FirstOrDefault();
+                }
+                else return _table.Include(d => d.Depot).FirstOrDefault();
+
+            }
+            else { return null; }
+
+        }
+
         public Login? Get(string username) // + psw
         {
             //return _table.FirstOrDefault(l => l.Username == username);

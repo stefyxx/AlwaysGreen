@@ -108,6 +108,14 @@ namespace AlwaysGreen.BLL.Services
         {
             return _particularRepository.Find(id);
         }
+        public Particular? FindWithLoginId(int LoginId) 
+        {
+            Login? logged = _loginRepository.Find(LoginId);
+            if(logged == null) return null;
+            else return _particularRepository.Find(logged.Particular.Id);
+            
+        }
+
 
         //override methode update
         public void Update(Particular particular)
@@ -121,7 +129,8 @@ namespace AlwaysGreen.BLL.Services
             Particular? p = _particularRepository.myUpdate(particular, username, email, address, phoneNumber, hash);
             if(p != null)
             {
-                //particular updated, gli invio mail con Firstname+lastname, mail, vostro login é: Username, psw
+                //particular updated-->  mail 
+
                 //string html = _renderer.Render<GoodUpdate>(
                 // new
                 // {
