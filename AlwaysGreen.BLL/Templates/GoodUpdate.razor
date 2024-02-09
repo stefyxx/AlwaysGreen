@@ -1,0 +1,64 @@
+﻿
+<div>
+    <p>Being green is the life philosophy that unites us.</p>
+    <p>Respecting the environment is possible.</p>
+    <br />
+    <p>Thank you for deciding to do it with us too</p>
+</div>
+<div>
+    <div>@FirstName  @LastName have updated your data: </div>
+    <div>
+        <div>Address:</div>
+        <div>@address.StreetNumber</div>
+        <div>@address.StreetNumber</div>
+        <div>
+            @if (address.Apartment != null)
+            {
+                <span>app:  @address.Apartment</span>
+            }
+            @if (address.Unit != null)
+            {
+                <span>, unit: @address.Unit</span>
+            }
+            @if (address.UnitNumber != null)
+            {
+                <span>, unit number: @address.UnitNumber </span>
+            }
+        </div>
+        <div>@address.City</div>
+        <div>@address.ZipCode</div>
+        <div>@address.Country</div>
+        <div>
+            <div>To modify your address</div>
+            <div><a>Update address</a></div>
+        </div>
+    </div>
+    <div>email: @Email</div>
+    <div>username: @Username</div>
+    <div>psw: @Psw</div>
+    <div>
+        <div>To modify your data</div>
+        <div><a>Update</a></div>
+    </div>
+    <div>
+        <div>To cancel your subscription</div>
+        <div><a>Delete</a></div>
+    </div>
+
+</div>
+
+
+@code {
+    [Parameter]
+    public string FirstName { get; set; }
+    [Parameter]
+    public string LastName { get; set; }
+    [Parameter]
+    public Domain.Entities.Address address { get; set; }
+    [Parameter]
+    public string Email { get; set; }
+    [Parameter]
+    public string Username { get; set; }
+    [Parameter]
+    public string Psw { get; set; }
+}

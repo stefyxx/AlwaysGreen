@@ -73,7 +73,7 @@ namespace AlwaysGreen.BLL.Services
                         Username = Username,
                         Password = hash,
                         Roles = [RolesEnum.Particular],
-                        ParticularId = p.Id
+                        Particular = p,
                     });
 
                     //particular creato, gli invio mail con Firstname+lastname, mail, vostro login é: Username, psw
@@ -117,7 +117,26 @@ namespace AlwaysGreen.BLL.Services
         {
             byte[] hash = _passwordHasher.Hash(email + psw);
 
-            return _particularRepository.myUpdate(particular, username, email, address, phoneNumber, hash);
+            Particular? p = _particularRepository.myUpdate(particular, username, email, address, phoneNumber, hash);
+            if(p != null)
+            {
+                //particular updated, gli invio mail con Firstname+lastname, mail, vostro login é: Username, psw
+                //string html = _renderer.Render<GoodUpdate>(
+                // new
+                // {
+                //     FirstName = p.FirstName,
+                //     LastName = p.LastName,
+                //     Email = p.Email,
+                //     address = p.Address,
+                //     Username = l.Username,
+                //     Psw = password
+                // }
+                // );
+                //_mailer.Send(p.Email, "Updated data", html);
+
+            }
+
+            return p == null ? null : p;
         }
     }
 }
