@@ -16,8 +16,14 @@ namespace AlwaysGreen.BLL.Services
         {
             Login? l = _loginRepository.Get(username);
 
-            if (l == null) throw new ValidationException("Aucun user avec cet email");
-            if (!_passwordHasher.Hash(l.Username + password).SequenceEqual(l.Password)) throw new ValidationException("pwd non valide");
+            if (l == null) throw new ValidationException("Aucun user avec cet username");
+
+            string email;
+            if (l.Roles.Contains(RolesEnum.Particular)) email = l.Particular.Email;
+            else email = l.Depot.Email;
+
+            if (!_passwordHasher.Hash(email + password).SequenceEqual(l.Password)) throw new ValidationException("pwd non valide");
+            
             return l;
 
             //if (l.Roles.Contains(RolesEnum.Particular))

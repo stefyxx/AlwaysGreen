@@ -51,6 +51,14 @@ namespace AlwaysGreen.BLL.Services
                     });
                 }
 
+                // TODO : controllare che login non esista già
+                Login l = _loginRepository.Add(new Login()
+                {
+                    Username = Username,
+                    Password = hash,
+                    Roles = [RolesEnum.Particular],
+                    //Particular = p,
+                });
 
                 Particular p = _particularRepository.Add(new Particular 
                 { 
@@ -60,22 +68,15 @@ namespace AlwaysGreen.BLL.Services
                     IsActive = true,
                     Email = Email,
                     //Roles = [RolesEnum.Particular], --> lo fa automaticamente C# --> NO INTO DB --> TODO: puo' dare problemi? ho login che ce l'ha
-                    AddressId = (addressExisting is null) ? a.Id : addressExisting.Id, //addressExisting.Id ?? a.Id,
-                    Address = (addressExisting is null)? a : addressExisting, //indirizzo inserito, con buon Id
+                    AddressId = (addressExisting == null) ? a.Id : addressExisting.Id, //addressExisting.Id ?? a.Id,
+                    //Address = (addressExisting == null)? a : addressExisting, //indirizzo inserito, con buon Id
+                    LoginId = l.Id,
                 });
 
                 //se riesco a inserire un particular, posso creare il login 
                 if(p.Id > 0) 
                 {
-                    // TODO : controllare che login non esista già
-                    Login l = _loginRepository.Add(new Login()
-                    {
-                        Username = Username,
-                        Password = hash,
-                        Roles = [RolesEnum.Particular],
-                        Particular = p,
-                    });
-
+                   
                     //particular creato, gli invio mail con Firstname+lastname, mail, vostro login é: Username, psw
                     //string html = _renderer.Render<Welcome>(
                     // new

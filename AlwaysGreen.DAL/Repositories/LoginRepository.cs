@@ -16,23 +16,20 @@ namespace AlwaysGreen.DAL.Repositories
 
         public Login? Get(string username) // + psw
         {
-            return _table.FirstOrDefault(l => l.Username == username);
-        }
-        public override Login Add(Login entity)
-        {
-            //return base.Add(entity);
-            if(entity.Particular != null)
+            //return _table.FirstOrDefault(l => l.Username == username);
+
+            Login? l =  _table.FirstOrDefault(l => l.Username == username);
+            if(l != null)
             {
-                _table.Include(p => p.Particular);
-                _context.SaveChanges();
+                if(l.Roles.Contains(Domain.Enums.RolesEnum.Particular))
+                {
+                    return _table.Include(p => p.Particular).FirstOrDefault();
+                }
+                else return _table.Include(d => d.Depot).FirstOrDefault();
+
             }
-            if(entity.Depot != null)
-            {
-                _table .Include(p => p.Depot);
-                _context.SaveChanges();
-            }
-            return base.FindById(entity.Id);
-                
+            else { return null; }
         }
+
     }
 }

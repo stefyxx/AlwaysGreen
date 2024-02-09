@@ -1,5 +1,6 @@
 ﻿using AlwaysGreen.BLL.Services;
 using AlwaysGreen.Domain.Entities;
+using AlwaysGreen.Domain.Enums;
 using AlwaysGreen.DTO;
 using AlwaysGreen.SecurityJWT;
 using Microsoft.AspNetCore.Http;
@@ -17,19 +18,20 @@ namespace AlwaysGreen.Controllers
         {
             try
             {
-                //per arrivare alla mail bisogna risalire a Location AUT particular
-
                 Login l = _securityService.Login(dto.Username, dto.Password);
 
-            if(l.Roles.Any())
-                {
-                    //todo--> differente modo di recuperare la mail, dip se particulier o Location
+                string email;
+                //if (l.Particular != null) email = l.Particular.Email;
+                //else email = l.Depot.Email;
 
-                    // --> CreateToken (string username, string identifier, string email, params string[] roles)
-                    //string token = _jwtManager.CreateToken(l.Email, l.Id.ToString(), l.Email, l.Roles.ToString());
-                }
-                //return Ok(new { Token = token });
-                return Ok();
+                if (l.Roles.Contains(RolesEnum.Particular)) email = l.Particular.Email;
+                else email = l.Depot.Email;
+
+                // --> CreateToken (string username, string identifier, string email, params string[] roles)
+                string token = _jwtManager.CreateToken(l.Username, l.Id.ToString(), email, l.Roles.ToString());
+
+                return Ok(new { Token = token });
+                
             }
             catch (ValidationException)
             {

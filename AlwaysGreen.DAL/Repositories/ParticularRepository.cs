@@ -31,18 +31,19 @@ namespace AlwaysGreen.DAL.Repositories
                 .ToList();
         }
 
-        public Particular? Insert(Particular entity, int AddressId, int LoginId)
-        {
-            //return base.Add(entity);
+        //non serve, add lo fa
+        //public Particular? Insert(Particular entity, int AddressId, int LoginId)
+        //{
+        //    //return base.Add(entity);
 
-            //_context.SaveChanges();
-            return _table
-                .Include(a => a.Address)
-                .Where(t => t.AddressId == AddressId)
-                .Include(l => l.Login)
-                .Where(l=> l.LoginId == LoginId)
-                .FirstOrDefault();
-        }
+        //    //_context.SaveChanges();
+        //    return _table
+        //        .Include(a => a.Address)
+        //        .Where(t => t.AddressId == AddressId)
+        //        .Include(l => l.Login)
+        //        .Where(l=> l.LoginId == LoginId)
+        //        .FirstOrDefault();
+        //}
 
 
         public override void Update(Particular p)
