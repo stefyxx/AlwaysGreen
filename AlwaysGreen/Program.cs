@@ -86,11 +86,11 @@ namespace AlwaysGreen
             builder.Services.AddScoped<IAddressRepisitory, AddressRepository>();
 
             //mail
-            //builder.Services.AddScoped<HttpClient>();
-            ////builder.Services.AddScoped<HtmlRenderer>();     //perché ho creato una mail == View.razor
-            //builder.Services.AddScoped<SmtpClient>();
-            //builder.Services.AddScoped<IMailer, Mailer>();
-            //builder.Services.AddSingleton(builder.Configuration.GetSection("Mailer").Get<Mailer.MailerConfig>());
+            builder.Services.AddScoped<HttpClient>();
+            builder.Services.AddScoped<HtmlRenderer>();     //perché ho creato una mail == View.razor
+            builder.Services.AddScoped<SmtpClient>();
+            builder.Services.AddScoped<IMailer, Mailer>();
+            builder.Services.AddSingleton(builder.Configuration.GetSection("Mailer").Get<Mailer.MailerConfig>());
 
 
 

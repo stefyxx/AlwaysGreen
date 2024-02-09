@@ -71,7 +71,7 @@ namespace AlwaysGreen.Controllers
         // PUT api/<ParticularsController>/5  --> [HttpPut("{id}")]
         [HttpPut]
         [Authorize(Roles = "Particular")]
-        public IActionResult Update([FromBody] UpdateParticularDTO updateDTO)
+        public IActionResult Update([FromBody] UpdateParticularDTO updateDTO, [FromQuery]string cancelLink)
         {
             bool isConnected = User != null;
             if (isConnected)
@@ -95,7 +95,7 @@ namespace AlwaysGreen.Controllers
                     };
                     //posso updatare i valori ricevuto nel Body della request: 
                     Particular? updatedUser = _particularServices.myUpdate(
-                        p, updateDTO.Username, updateDTO.Email, newAddress, updateDTO.PhoneNumber, updateDTO.Password);
+                        p, updateDTO.Username, updateDTO.Email, newAddress, updateDTO.PhoneNumber, updateDTO.Password, cancelLink);
 
                     return Ok(updatedUser);
                 }else throw new Exception("No user found");

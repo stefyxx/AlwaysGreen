@@ -38,11 +38,12 @@
     <div>psw: @Psw</div>
     <div>
         <div>To modify your data</div>
+
         <div><a>Update</a></div>
     </div>
     <div>
         <div>To cancel your subscription</div>
-        <div><a>Delete</a></div>
+        <div><a href="@CancelLink">Delete</a></div>
     </div>
 
 </div>
@@ -61,4 +62,7 @@
     public string Username { get; set; }
     [Parameter]
     public string Psw { get; set; }
+
+    [Parameter]
+    public string CancelLink { get; set; }
 }

@@ -13,8 +13,8 @@ namespace AlwaysGreen.BLL.Services
 {
     public class ParticularServices(
         IParticularRepository _particularRepository, IPasswordHasher _passwordHasher, 
-        IAddressRepisitory _addressRepository, ILoginRepository _loginRepository//,
-        //HtmlRenderer _renderer, Mailer _mailer
+        IAddressRepisitory _addressRepository, ILoginRepository _loginRepository,
+        HtmlRenderer _renderer, IMailer _mailer
         )
     {
         //getAll
@@ -113,7 +113,7 @@ namespace AlwaysGreen.BLL.Services
         {
             _particularRepository.Update(particular);
         }
-        public Particular? myUpdate(Particular particular, string username, string email, Address address, string phoneNumber, string psw)
+        public Particular? myUpdate(Particular particular, string username, string email, Address address, string phoneNumber, string psw, string cancelLink)
         {
             byte[] hash = _passwordHasher.Hash(email + psw);
 
@@ -128,8 +128,9 @@ namespace AlwaysGreen.BLL.Services
                 //     LastName = p.LastName,
                 //     Email = p.Email,
                 //     address = p.Address,
-                //     Username = l.Username,
-                //     Psw = password
+                //     Username = p.Login.Username,
+                //     Psw = psw,
+                //     CancelLink = cancelLink
                 // }
                 // );
                 //_mailer.Send(p.Email, "Updated data", html);

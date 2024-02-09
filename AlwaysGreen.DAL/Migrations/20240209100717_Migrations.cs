@@ -47,6 +47,21 @@ namespace AlwaysGreen.DAL.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Logins",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
+                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Logins", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Sirets",
                 columns: table => new
                 {
@@ -84,7 +99,8 @@ namespace AlwaysGreen.DAL.Migrations
                     PhoneNumber = table.Column<string>(type: "varchar(15)", nullable: false),
                     Email = table.Column<string>(type: "varchar(75)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
-                    AddressId = table.Column<int>(type: "int", nullable: false)
+                    AddressId = table.Column<int>(type: "int", nullable: false),
+                    LoginId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -93,6 +109,12 @@ namespace AlwaysGreen.DAL.Migrations
                         name: "FK_Particulars_Addresses_AddressId",
                         column: x => x.AddressId,
                         principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Particulars_Logins_LoginId",
+                        column: x => x.LoginId,
+                        principalTable: "Logins",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -166,7 +188,9 @@ namespace AlwaysGreen.DAL.Migrations
                     Roles = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     IsActive = table.Column<bool>(type: "bit", nullable: false),
                     AddressId = table.Column<int>(type: "int", nullable: false),
-                    TransportId = table.Column<int>(type: "int", nullable: true),
+                    LoginId = table.Column<int>(type: "int", nullable: false),
+                    TransportFromId = table.Column<int>(type: "int", nullable: true),
+                    TransportToId = table.Column<int>(type: "int", nullable: true),
                     Discriminator = table.Column<string>(type: "nvarchar(8)", maxLength: 8, nullable: false),
                     VATnumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     SiretId = table.Column<int>(type: "int", nullable: true),
@@ -185,6 +209,12 @@ namespace AlwaysGreen.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
+                        name: "FK_Location_Logins_LoginId",
+                        column: x => x.LoginId,
+                        principalTable: "Logins",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
                         name: "FK_Location_Sirets_SiretId",
                         column: x => x.SiretId,
                         principalTable: "Sirets",
@@ -196,36 +226,14 @@ namespace AlwaysGreen.DAL.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Location_Transports_TransportId",
-                        column: x => x.TransportId,
+                        name: "FK_Location_Transports_TransportFromId",
+                        column: x => x.TransportFromId,
                         principalTable: "Transports",
                         principalColumn: "Id");
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Logins",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<byte[]>(type: "varbinary(max)", nullable: false),
-                    Roles = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParticularId = table.Column<int>(type: "int", nullable: true),
-                    LocationId = table.Column<int>(type: "int", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Logins", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Logins_Location_LocationId",
-                        column: x => x.LocationId,
-                        principalTable: "Location",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Logins_Particulars_ParticularId",
-                        column: x => x.ParticularId,
-                        principalTable: "Particulars",
+                        name: "FK_Location_Transports_TransportToId",
+                        column: x => x.TransportToId,
+                        principalTable: "Transports",
                         principalColumn: "Id");
                 });
 
@@ -250,6 +258,12 @@ namespace AlwaysGreen.DAL.Migrations
                 column: "AddressId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Location_LoginId",
+                table: "Location",
+                column: "LoginId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Location_SiretId",
                 table: "Location",
                 column: "SiretId");
@@ -260,24 +274,25 @@ namespace AlwaysGreen.DAL.Migrations
                 column: "Store_SiretId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Location_TransportId",
+                name: "IX_Location_TransportFromId",
                 table: "Location",
-                column: "TransportId");
+                column: "TransportFromId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Logins_LocationId",
-                table: "Logins",
-                column: "LocationId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Logins_ParticularId",
-                table: "Logins",
-                column: "ParticularId");
+                name: "IX_Location_TransportToId",
+                table: "Location",
+                column: "TransportToId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Particulars_AddressId",
                 table: "Particulars",
                 column: "AddressId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Particulars_LoginId",
+                table: "Particulars",
+                column: "LoginId",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -290,16 +305,13 @@ namespace AlwaysGreen.DAL.Migrations
                 name: "Deliveries");
 
             migrationBuilder.DropTable(
-                name: "Logins");
-
-            migrationBuilder.DropTable(
-                name: "Emptybottles");
-
-            migrationBuilder.DropTable(
                 name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Particulars");
+
+            migrationBuilder.DropTable(
+                name: "Emptybottles");
 
             migrationBuilder.DropTable(
                 name: "Sirets");
@@ -309,6 +321,9 @@ namespace AlwaysGreen.DAL.Migrations
 
             migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "Logins");
         }
     }
 }

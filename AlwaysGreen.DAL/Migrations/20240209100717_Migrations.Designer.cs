@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlwaysGreen.DAL.Migrations
 {
     [DbContext(typeof(AlwaysgreenContext))]
-    [Migration("20240207123217_Migrations")]
+    [Migration("20240209100717_Migrations")]
     partial class Migrations
     {
         /// <inheritdoc />
@@ -182,6 +182,9 @@ namespace AlwaysGreen.DAL.Migrations
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
 
+                    b.Property<int>("LoginId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("varchar(15)");
@@ -190,14 +193,20 @@ namespace AlwaysGreen.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("TransportId")
+                    b.Property<int?>("TransportFromId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("TransportToId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddressId");
+                    b.HasIndex("LoginId")
+                        .IsUnique();
 
-                    b.HasIndex("TransportId");
+                    b.HasIndex("TransportFromId");
+
+                    b.HasIndex("TransportToId");
 
                     b.ToTable("Location");
 
@@ -214,12 +223,6 @@ namespace AlwaysGreen.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("LocationId")
-                        .HasColumnType("int");
-
-                    b.Property<int?>("ParticularId")
-                        .HasColumnType("int");
-
                     b.Property<byte[]>("Password")
                         .IsRequired()
                         .HasColumnType("varbinary(max)");
@@ -233,10 +236,6 @@ namespace AlwaysGreen.DAL.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("LocationId");
-
-                    b.HasIndex("ParticularId");
 
                     b.ToTable("Logins");
                 });
@@ -267,6 +266,9 @@ namespace AlwaysGreen.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(50)");
 
+                    b.Property<int>("LoginId")
+                        .HasColumnType("int");
+
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
                         .HasColumnType("varchar(15)");
@@ -274,6 +276,9 @@ namespace AlwaysGreen.DAL.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AddressId");
+
+                    b.HasIndex("LoginId")
+                        .IsUnique();
 
                     b.ToTable("Particulars");
                 });
@@ -326,6 +331,8 @@ namespace AlwaysGreen.DAL.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("SiretId");
 
                     b.HasDiscriminator().HasValue("Company");
@@ -334,6 +341,8 @@ namespace AlwaysGreen.DAL.Migrations
             modelBuilder.Entity("AlwaysGreen.Domain.Entities.Depot", b =>
                 {
                     b.HasBaseType("AlwaysGreen.Domain.Entities.Location");
+
+                    b.HasIndex("AddressId");
 
                     b.HasDiscriminator().HasValue("Depot");
                 });
@@ -354,6 +363,8 @@ namespace AlwaysGreen.DAL.Migrations
                     b.Property<string>("VATnumber")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("SiretId");
 
@@ -407,34 +418,25 @@ namespace AlwaysGreen.DAL.Migrations
 
             modelBuilder.Entity("AlwaysGreen.Domain.Entities.Location", b =>
                 {
-                    b.HasOne("AlwaysGreen.Domain.Entities.Address", "Address")
-                        .WithMany()
-                        .HasForeignKey("AddressId")
+                    b.HasOne("AlwaysGreen.Domain.Entities.Login", "Login")
+                        .WithOne("Depot")
+                        .HasForeignKey("AlwaysGreen.Domain.Entities.Location", "LoginId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("AlwaysGreen.Domain.Entities.Transport", "Transport")
-                        .WithMany()
-                        .HasForeignKey("TransportId");
+                    b.HasOne("AlwaysGreen.Domain.Entities.Transport", "TransportFrom")
+                        .WithMany("LocationsFrom")
+                        .HasForeignKey("TransportFromId");
 
-                    b.Navigation("Address");
+                    b.HasOne("AlwaysGreen.Domain.Entities.Transport", "TransportTo")
+                        .WithMany("LocationsTo")
+                        .HasForeignKey("TransportToId");
 
-                    b.Navigation("Transport");
-                });
+                    b.Navigation("Login");
 
-            modelBuilder.Entity("AlwaysGreen.Domain.Entities.Login", b =>
-                {
-                    b.HasOne("AlwaysGreen.Domain.Entities.Location", "Depot")
-                        .WithMany()
-                        .HasForeignKey("LocationId");
+                    b.Navigation("TransportFrom");
 
-                    b.HasOne("AlwaysGreen.Domain.Entities.Particular", "Particular")
-                        .WithMany()
-                        .HasForeignKey("ParticularId");
-
-                    b.Navigation("Depot");
-
-                    b.Navigation("Particular");
+                    b.Navigation("TransportTo");
                 });
 
             modelBuilder.Entity("AlwaysGreen.Domain.Entities.Particular", b =>
@@ -445,25 +447,60 @@ namespace AlwaysGreen.DAL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("AlwaysGreen.Domain.Entities.Login", "Login")
+                        .WithOne("Particular")
+                        .HasForeignKey("AlwaysGreen.Domain.Entities.Particular", "LoginId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("Address");
+
+                    b.Navigation("Login");
                 });
 
             modelBuilder.Entity("AlwaysGreen.Domain.Entities.Company", b =>
                 {
+                    b.HasOne("AlwaysGreen.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AlwaysGreen.Domain.Entities.Siret", "Siret")
                         .WithMany()
                         .HasForeignKey("SiretId");
 
+                    b.Navigation("Address");
+
                     b.Navigation("Siret");
+                });
+
+            modelBuilder.Entity("AlwaysGreen.Domain.Entities.Depot", b =>
+                {
+                    b.HasOne("AlwaysGreen.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("AlwaysGreen.Domain.Entities.Store", b =>
                 {
+                    b.HasOne("AlwaysGreen.Domain.Entities.Address", "Address")
+                        .WithMany()
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("AlwaysGreen.Domain.Entities.Siret", "Siret")
                         .WithMany()
                         .HasForeignKey("SiretId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Address");
 
                     b.Navigation("Siret");
                 });
@@ -473,11 +510,22 @@ namespace AlwaysGreen.DAL.Migrations
                     b.Navigation("Deliveries");
                 });
 
+            modelBuilder.Entity("AlwaysGreen.Domain.Entities.Login", b =>
+                {
+                    b.Navigation("Depot");
+
+                    b.Navigation("Particular");
+                });
+
             modelBuilder.Entity("AlwaysGreen.Domain.Entities.Transport", b =>
                 {
                     b.Navigation("Courriers");
 
                     b.Navigation("Deliveries");
+
+                    b.Navigation("LocationsFrom");
+
+                    b.Navigation("LocationsTo");
                 });
 #pragma warning restore 612, 618
         }
