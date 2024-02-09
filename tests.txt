@@ -1,0 +1,58 @@
+{
+  "phoneNumber": "123456",
+  "email": "stefyx@example.com",
+  "address": {
+    "streetName": "ste",
+    "streetNumber": "1",
+    "apartment": null,
+    "unit": null,
+    "unitNumber": null,
+    "city": "Brussels",
+    "zipCode": "1040",
+    "country": "Belgium"
+  },
+  "password": "Test1234",
+  "username": "Stefyx",
+  "firstName": "Stefy",
+  "lastName": "Ste"
+}
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiU3RlZnl4IiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvbmFtZWlkZW50aWZpZXIiOiIxIiwiaHR0cDovL3NjaGVtYXMueG1sc29hcC5vcmcvd3MvMjAwNS8wNS9pZGVudGl0eS9jbGFpbXMvZW1haWxhZGRyZXNzIjoic3RlZnl4QGV4YW1wbGUuY29tIiwiaHR0cDovL3NjaGVtYXMubWljcm9zb2Z0LmNvbS93cy8yMDA4LzA2L2lkZW50aXR5L2NsYWltcy9yb2xlIjoiQWx3YXlzR3JlZW4uRG9tYWluLkVudW1zLlJvbGVzRW51bVtdIiwibmJmIjoxNzA3NDg5NDEzLCJleHAiOjE3Mzc0ODk0MTQsImlzcyI6ImFsd2F5c2dyZWVuLmNvbSIsImF1ZCI6ImNsaWVudC5hbHdheXNncmVlbi5jb20ifQ.wo0m5tCyCUI2RUZNWcXqDMhXTbtrxKtrK2YMZo93-K4
+
+{
+  "phoneNumber": "12345677",
+  "email": "stefyxxxx@example.com",
+  "address": {
+    "streetName": "ste",
+    "streetNumber": "1",
+    "apartment": null,
+    "unit": null,
+    "unitNumber": null,
+    "city": "Brussels",
+    "zipCode": "1040",
+    "country": "Belgium"
+  },
+  "password": "Test12345",
+  "username": "Stefyx",
+  "firstName": "Stefyy",
+  "lastName": "Steee"
+}
+
+
+{
+  "phoneNumber": "123456",
+  "email": "stefyxnewnewnew@example.com",
+  "address": {
+    "streetName": "ste",
+    "streetNumber": "1",
+    "apartment": null,
+    "unit": null,
+    "unitNumber": null,
+    "city": "Brussels",
+    "zipCode": "1040",
+    "country": "Belgium"
+  },
+ "password": "Test1234",
+  "username": "Stefyx",
+}
+
