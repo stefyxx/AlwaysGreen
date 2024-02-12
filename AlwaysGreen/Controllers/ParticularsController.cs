@@ -81,37 +81,54 @@ namespace AlwaysGreen.Controllers
 
                 //se user esiste realmente in in BD
                 int loginId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
-                Particular? p = _particularServices.FindWithLoginId(loginId);
-                if (p != null)
+
+                Address newAddress = new Address()
                 {
-                    Address newAddress = new Address() 
-                    { 
-                        Id= p.AddressId,
-                        StreetName = updateDTO.Address.StreetName,
-                        StreetNumber = updateDTO.Address.StreetNumber,
-                        Apartment = updateDTO.Address.Apartment ?? null,
-                        Unit = updateDTO.Address.Unit ?? null,
-                        UnitNumber = updateDTO.Address.UnitNumber ?? null,
-                        City = updateDTO.Address.City,
-                        ZipCode = updateDTO.Address.ZipCode,
-                        Country = updateDTO.Address.Country
-                    };
+                    StreetName = updateDTO.Address.StreetName,
+                    StreetNumber = updateDTO.Address.StreetNumber,
+                    Apartment = updateDTO.Address.Apartment ?? null,
+                    Unit = updateDTO.Address.Unit ?? null,
+                    UnitNumber = updateDTO.Address.UnitNumber ?? null,
+                    City = updateDTO.Address.City,
+                    ZipCode = updateDTO.Address.ZipCode,
+                    Country = updateDTO.Address.Country
+                };
+                Particular? p = _particularServices.FirstUpdate(loginId, newAddress);
+                if (p != null || p.IsActive == true)
+                {
                     //posso updatare i valori ricevuto nel Body della request: 
                     Particular? updatedUser = _particularServices.myUpdate(
-                        p, updateDTO.Username, updateDTO.Email, newAddress, updateDTO.PhoneNumber, updateDTO.Password, cancelLink);
+                        p, updateDTO.Username, updateDTO.Email, p.AddressId, updateDTO.PhoneNumber, updateDTO.Password, cancelLink);
+                    ParticularResultDTO pNew = Mappers.ToDTO(updatedUser);
 
-                    return Ok(updatedUser);
-                }else throw new Exception("No user found");
+                    return Ok(pNew);
+                }else throw new Exception("No user found"); // o perché non esiste o perché é stato già 'cancellato'
             }
             else return Unauthorized();
         }
 
         // DELETE api/<ParticularsController>/5
-        [HttpDelete("{id}")]
+        [HttpPut("{id}")]
         //[Authorize(Roles = "Particular")]
-        public void Delete(int id)
+        [Authorize]
+        public IActionResult Delete(int id)
         {
+            bool isConnected = User != null;
+            if (isConnected)
+            {
 
+                int loginId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
+                Particular? p = _particularServices.FindWithLoginId(loginId);
+                if(id == p.Id)
+                {
+                    p.IsActive = false;
+                    _particularServices.Update(p);
+                    return Ok();
+                }
+                else return Unauthorized(); // perché chiedo di cancellare una persona diversa dalla loggata
+
+            }
+            else return Unauthorized();
         }
     }
 }

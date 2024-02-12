@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Components.Web;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Transactions;
 
 namespace AlwaysGreen.BLL.Services
@@ -122,11 +123,46 @@ namespace AlwaysGreen.BLL.Services
         {
             _particularRepository.Update(particular);
         }
-        public Particular? myUpdate(Particular particular, string username, string email, Address address, string phoneNumber, string psw, string cancelLink)
+
+        public Particular? FirstUpdate(int loginId, Address newAddress)
+        {
+            try
+            {
+                using TransactionScope transaction = new TransactionScope();
+
+                Particular? p = FindWithLoginId(loginId);
+                if (p != null)
+                {
+                    Address? addressExisting = _addressRepository.FindIsExisting(newAddress);
+                    Address a = new Address();
+                    if (addressExisting == null)
+                    {
+                        a = _addressRepository.Add(new Address()
+                        {
+                            // Id dato da inserted
+                            StreetName = newAddress.StreetName,
+                            StreetNumber = newAddress.StreetNumber,
+                            Apartment = newAddress.Apartment ?? null,
+                            Unit = newAddress.Unit ?? null,
+                            UnitNumber = newAddress.UnitNumber ?? null,
+                            City = newAddress.City,
+                            ZipCode = newAddress.ZipCode,
+                            Country = newAddress.Country
+                        });
+                    }
+                    transaction.Complete();
+                    return p;
+                }
+                else { throw new Exception(message: "No user found"); };
+            }
+            catch (Exception) { throw new Exception("It was not possible to update"); }
+
+        }
+        public Particular? myUpdate(Particular particular, string username, string email, int addressId, string phoneNumber, string psw, string cancelLink)
         {
             byte[] hash = _passwordHasher.Hash(email + psw);
 
-            Particular? p = _particularRepository.myUpdate(particular, username, email, address, phoneNumber, hash);
+            Particular? p = _particularRepository.myUpdate(particular, username, email, addressId, phoneNumber, hash);
             if(p != null)
             {
                 //particular updated-->  mail 

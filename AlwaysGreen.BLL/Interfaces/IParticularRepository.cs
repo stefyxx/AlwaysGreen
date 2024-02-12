@@ -17,6 +17,6 @@ namespace AlwaysGreen.BLL.Interfaces
         public Particular? Find(params object[] id);
 
         public void Update(Particular p);
-        public Particular? myUpdate(Particular p, string username, string email, Address address, string phoneNumber, byte[] psw);
+        public Particular? myUpdate(Particular p, string username, string email, int addressId, string phoneNumber, byte[] psw);
     }
 }

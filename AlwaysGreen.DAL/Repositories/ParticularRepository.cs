@@ -49,17 +49,17 @@ namespace AlwaysGreen.DAL.Repositories
         public override void Update(Particular p)
         {
             _table
-                .Include(a => a.Address)
-                .Include(l => l.Login);
+                .Include(a => a.Address).Where(a=> a.AddressId == p.AddressId)
+                .Include(l => l.Login).Where(l=> l.LoginId == p.LoginId);
 
             _context.SaveChanges();
         }
         
         //recupero p con Id perché é preso dal User connected
-        public Particular? myUpdate(Particular p, string username, string email, Address address, string phoneNumber, byte[] psw)
+        public Particular? myUpdate(Particular p, string username, string email, int addressId, string phoneNumber, byte[] psw)
         {
             p.Email = email;
-            p.Address = address;
+            p.AddressId = addressId;
             p.PhoneNumber = phoneNumber;
             p.Login.Username = username;
             p.Login.Password = psw;

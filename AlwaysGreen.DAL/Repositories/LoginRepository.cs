@@ -21,9 +21,9 @@ namespace AlwaysGreen.DAL.Repositories
             {
                 if (l.Roles.Contains(Domain.Enums.RolesEnum.Particular))
                 {
-                    return _table.Include(p => p.Particular).FirstOrDefault();
+                    return _table.Include(p => p.Particular).Where(l => l.Id == loginId).FirstOrDefault();
                 }
-                else return _table.Include(d => d.Depot).FirstOrDefault();
+                else return _table.Include(d => d.Depot).Where(l => l.Id == loginId).FirstOrDefault();
 
             }
             else { return null; }
@@ -32,16 +32,18 @@ namespace AlwaysGreen.DAL.Repositories
 
         public Login? Get(string username) // + psw
         {
-            //return _table.FirstOrDefault(l => l.Username == username);
+            //return _table.Include(p => p.Particular)
+            //    .Include(d => d.Depot)
+            //    .FirstOrDefault(l => l.Username == username);
 
-            Login? l =  _table.FirstOrDefault(l => l.Username == username);
-            if(l != null)
+            Login? l = _table.FirstOrDefault(l => l.Username == username);
+            if (l != null)
             {
-                if(l.Roles.Contains(Domain.Enums.RolesEnum.Particular))
+                if (l.Roles.Contains(Domain.Enums.RolesEnum.Particular))
                 {
-                    return _table.Include(p => p.Particular).FirstOrDefault();
+                    return _table.Include(p => p.Particular).Where(p=> p.Username == username).FirstOrDefault();
                 }
-                else return _table.Include(d => d.Depot).FirstOrDefault();
+                else return _table.Include(d => d.Depot).Where(p => p.Username == username).FirstOrDefault();
 
             }
             else { return null; }
