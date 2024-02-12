@@ -36,7 +36,7 @@ namespace AlwaysGreen.Domain.Entities
 
         #region FK
         public int AddressId { get; set; }
-        [ForeignKey("AddressId  ")]
+        [ForeignKey("AddressId")]
         public Address Address { get; set; }
         public int LoginId { get; set; }
         //che in realtà ne avrà uno solo

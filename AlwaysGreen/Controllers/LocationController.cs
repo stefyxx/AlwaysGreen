@@ -9,16 +9,16 @@ namespace AlwaysGreen.Controllers
     [ApiController]
     public class LocationController(LocationServices _locationServices) : ControllerBase
     {
-        //[HttpGet]
-        //public IActionResult GetAll()
-        //{
-        //    try
-        //    {
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            try
+            {
 
-        //        List<Location> loctions = _locationServices.GetAll();
-        //        return Ok(loctions);
-        //    }
-        //    catch (Exception ex) { return BadRequest(ex.Message); }
-        //}
+                List<Location> loctions = _locationServices.GetAll();
+                return Ok(loctions);
+            }
+            catch (Exception ex) { return BadRequest(ex.Message); }
+        }
     }
 }

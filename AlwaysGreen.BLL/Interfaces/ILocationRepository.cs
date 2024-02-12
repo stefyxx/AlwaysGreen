@@ -4,6 +4,6 @@ namespace AlwaysGreen.BLL.Interfaces
 {
     public interface ILocationRepository
     {
-        //public List<Location> GetAll();
+        public List<Location> GetAll();
     }
 }

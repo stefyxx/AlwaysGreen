@@ -10,17 +10,17 @@ using System.Threading.Tasks;
 
 namespace AlwaysGreen.DAL.Repositories
 {
-    public class LocationRepository// : BaseRepository<Location>, ILocationRepository
+    public class LocationRepository : BaseRepository<Location>, ILocationRepository
     {
-        //public LocationRepository(AlwaysgreenContext context) : base(context)
-        //{
-        //}
+        public LocationRepository(AlwaysgreenContext context) : base(context)
+        {
+        }
 
-        //public List<Location> GetAll()
-        //{
-        //    return _table
-        //        .Include(a => a.Address)
-        //        .ToList();
-        //}
+        public List<Location> GetAll()
+        {
+            return _table
+                //.Include(a => a.Address)
+                .ToList();
+        }
     }
 }
