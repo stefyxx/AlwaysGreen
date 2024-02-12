@@ -9,7 +9,15 @@ namespace AlwaysGreen.BLL.Services
         //register == Add new
         public List<Emptybottle> GetAll() { return _emptybottleRepository.GetAll(); }
 
-        public Emptybottle? Find(params object[] id) { return _emptybottleRepository.Find(id); }
+        public Emptybottle? Find(params object[] id) 
+        {
+            Emptybottle? emptybottle = _emptybottleRepository.Find(id); 
+            if (emptybottle is null)
+            {
+                throw new KeyNotFoundException();
+            }else return emptybottle;
+
+        }
         public Emptybottle Add(Emptybottle e) 
         {
             Emptybottle? eBIsexisted = _emptybottleRepository.FindIsExisting(e);
@@ -20,11 +28,13 @@ namespace AlwaysGreen.BLL.Services
         public void Update(Emptybottle e) 
         {
             Emptybottle? emptybottle = _emptybottleRepository.Find(e.Id);
-            if (emptybottle is null)
-            {
-                throw new KeyNotFoundException();
-            }
-            else _emptybottleRepository.Update(e);
+            //controllo già fatto in Find
+            //if (emptybottle is null)
+            //{
+            //    throw new KeyNotFoundException();
+            //}
+            //else
+            _emptybottleRepository.Update(e);
         }
         
         public Emptybottle MyUpdate(Emptybottle e)

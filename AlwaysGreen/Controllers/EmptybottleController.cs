@@ -14,16 +14,27 @@ namespace AlwaysGreen.Controllers
     {
         // GET: api/<EmptybottleController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            try
+            {
+                List<Emptybottle> result = _services.GetAll();
+                return Ok(result);
+            }
+            catch { return BadRequest(); }
         }
 
         // GET api/<EmptybottleController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            try
+            {
+                Emptybottle? result = _services.Find(id);
+                if(result != null) return Ok(result);
+                else return NotFound();
+            }
+            catch { return BadRequest(); }
         }
 
         // POST api/<EmptybottleController>
@@ -32,7 +43,13 @@ namespace AlwaysGreen.Controllers
         {
             try
             {
-                return Ok();
+                //if exist 
+                Emptybottle e = new Emptybottle();
+                e.Prix = value.Prix;
+                e.Quantity = value.Quantity;
+                e.TypeName = value.TypeName;
+                Emptybottle result = _services.Add(e);
+                return Ok(result);
             }
             catch
             {
@@ -47,7 +64,8 @@ namespace AlwaysGreen.Controllers
             try
             {
                 Emptybottle? b = _services.Find(id);
-                if (b.TypeName != value.TypeName) throw new Exception("L'id non corrisponde alla bottiglia che si vuole modifivare"); 
+                
+                if (b.TypeName != value.TypeName) throw new Exception(message:"L'id non corrisponde alla bottiglia che si vuole modifivare"); 
                 else
                 {
                     b.Quantity = value.Quantity;
