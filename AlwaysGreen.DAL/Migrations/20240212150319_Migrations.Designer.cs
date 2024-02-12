@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace AlwaysGreen.DAL.Migrations
 {
     [DbContext(typeof(AlwaysgreenContext))]
-    [Migration("20240209100717_Migrations")]
+    [Migration("20240212150319_Migrations")]
     partial class Migrations
     {
         /// <inheritdoc />

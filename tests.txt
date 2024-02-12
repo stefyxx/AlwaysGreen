@@ -56,3 +56,45 @@ eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8
   "username": "Stefyx",
 }
 
+________________
+test update:
+{
+  "phoneNumber": "123456",
+  "email": "testupdate@example.com",
+  "address": {
+    "streetName": "test",
+    "streetNumber": "1",
+    "apartment": null,
+    "unit": null,
+    "unitNumber": null,
+    "city": "Anverse",
+    "zipCode": "2000",
+    "country": "Belgique"
+  },
+  "password": "123Test",
+  "username": "test",
+  "firstName": "Test",
+  "lastName": "Update"
+}
+
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoidGVzdCIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL25hbWVpZGVudGlmaWVyIjoiNSIsImh0dHA6Ly9zY2hlbWFzLnhtbHNvYXAub3JnL3dzLzIwMDUvMDUvaWRlbnRpdHkvY2xhaW1zL2VtYWlsYWRkcmVzcyI6InRlc3R1cGRhdGVAZXhhbXBsZS5jb20iLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJBbHdheXNHcmVlbi5Eb21haW4uRW51bXMuUm9sZXNFbnVtW10iLCJuYmYiOjE3MDc3MjkzMjcsImV4cCI6MTczNzcyOTMyNywiaXNzIjoiYWx3YXlzZ3JlZW4uY29tIiwiYXVkIjoiY2xpZW50LmFsd2F5c2dyZWVuLmNvbSJ9.l3K4LRkoSosxoHlEUvZ6T6cqGLX__GRvbmHBa3qnK_g
+
+{
+  "phoneNumber": "6789",
+  "email": "updatedupdated@example.com",
+  "address": {
+    "streetName": "test",
+    "streetNumber": "1",
+    "apartment": null,
+    "unit": null,
+    "unitNumber": null,
+    "city": "Anverse",
+    "zipCode": "2000",
+    "country": "Belgique"
+  },
+  "password": "123Test",
+  "username": "test"
+}
+
+
+  

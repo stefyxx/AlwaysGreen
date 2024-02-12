@@ -46,6 +46,13 @@ namespace AlwaysGreen.DAL.Context
 
             // qui' specifico che PK é una key composta: dalle due keyes
             modelBuilder.Entity<Delivery>().HasKey(d => new { d.TransportId, d.EmptybottleId });
+
+            //modelBuilder.Entity<Location>().UseTphMappingStrategy();
+            //modelBuilder.Entity<Company>();
+            //modelBuilder.Entity<Store>();
+            //modelBuilder.Entity<Depot>();
+
+            //base.OnModelCreating(modelBuilder);
         }
 
 

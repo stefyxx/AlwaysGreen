@@ -70,7 +70,7 @@ namespace AlwaysGreen.Controllers
 
         // PUT api/<ParticularsController>/5  --> [HttpPut("{id}")]
         //[Authorize(Roles = "Particular")]
-        [HttpPut]
+        [HttpPut("Delete")]
         [Authorize]
         public IActionResult Update([FromBody] UpdateParticularDTO updateDTO, [FromQuery]string? cancelLink)
         {

@@ -84,6 +84,10 @@ namespace AlwaysGreen
             builder.Services.AddScoped<ILoginRepository, LoginRepository>();
             //builder.Services.AddScoped<LoginServices>();
             builder.Services.AddScoped<IAddressRepisitory, AddressRepository>();
+            //builder.Services.AddScoped<ILocationRepository, LocationRepository>();
+            //builder.Services.AddScoped<LocationServices>();
+            builder.Services.AddScoped<IEmptybottleRepository, EmptybottleRepository>();
+            builder.Services.AddScoped<EmptybottleServices>();
 
             //mail
             builder.Services.AddScoped<HttpClient>();
