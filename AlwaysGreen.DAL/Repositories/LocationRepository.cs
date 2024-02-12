@@ -12,14 +12,15 @@ namespace AlwaysGreen.DAL.Repositories
 {
     public class LocationRepository : BaseRepository<Location>, ILocationRepository
     {
-        public LocationRepository(AlwaysgreenContext context) : base(context)
-        {
-        }
+        public LocationRepository(AlwaysgreenContext context) : base(context) { }
 
         public List<Location> GetAll()
         {
             return _table
+                //.Include(t => ((Address)t.Address))
                 //.Include(a => a.Address)
+                .Where(t=> t.IsActive == true)
+                .OrderBy(t=> t.Email)
                 .ToList();
         }
     }

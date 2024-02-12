@@ -49,7 +49,6 @@ namespace AlwaysGreen.Controllers
 
                 ParticularResultDTO result = Mappers.ToDTO(data);
                 return Created("ok", result);
-                //return Ok();
             }
             catch (ValidationException ex) 
             {

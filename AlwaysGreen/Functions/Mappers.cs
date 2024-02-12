@@ -38,6 +38,17 @@ namespace AlwaysGreen.Functions
             };
         }
 
+        public static Siret ToDomain(this SiretDTO data)
+        {
+            if (data is null) return null;
+            return new Siret()
+            {
+                Id = 0,
+                Siren = data.Siren,
+                NIC = data.NIC
+            };
+        }
+
         public static ParticularResultDTO ToDTO(this Particular d)
         {
             return new ParticularResultDTO()
