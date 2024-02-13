@@ -96,5 +96,36 @@ Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9y
   "username": "test"
 }
 
+_______________________________________
+
+{
+  "agencyName": "ste",
+  "companyName": "Ste",
+  "phoneNumber": "12345",
+  "roles": [
+    "Company"
+  ],
+  "email": "user@example.com",
+  "address": {
+    "streetName": "test",
+    "streetNumber": "1",
+    "apartment": null,
+    "unit": null,
+    "unitNumber": null,
+    "city": Anverse,
+    "zipCode": "2000",
+    "country": "Belgique"
+  },
+  "password": "TestTest",
+  "username": "CompanyTest",
+  "vaTnumber": "1234",
+  "siret": {
+    "siren": "123456",
+    "nic": "078"
+  },
+  "isPickUpPoint": false,
+  "isStorePoint": false
+}
+
 
   

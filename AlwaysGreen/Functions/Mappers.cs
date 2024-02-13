@@ -72,7 +72,7 @@ namespace AlwaysGreen.Functions
                 Id = data.Id,
                 AgencyName= data.AgencyName,
                 CompanyName= data.CompanyName,
-                Roles = data.Roles,
+                Roles = data.Roles.ToArray(),
                 Address = data.Address.ToDTO(),
                 Username = data.Login.Username
             };

@@ -9,6 +9,6 @@ namespace AlwaysGreen.Domain.Entities
 {
     public class Depot: Location
     {
-        public override RolesEnum[] Roles { get => [RolesEnum.Depot]; }
+        public override List<RolesEnum> Roles { get => [RolesEnum.Depot]; }
     }
 }

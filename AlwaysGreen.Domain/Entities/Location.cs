@@ -30,7 +30,7 @@ namespace AlwaysGreen.Domain.Entities
         public string Email { get; set; }
 
         //es Delaize puo' essere sia un enterprise che un magasin
-        public virtual RolesEnum[] Roles { get; set; }
+        public abstract List<RolesEnum> Roles { get; }
 
         public bool IsActive { get; set; } = true;
 

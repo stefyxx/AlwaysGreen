@@ -14,5 +14,17 @@ namespace AlwaysGreen.DAL.Repositories
     {
         public CompanyRepository(AlwaysgreenContext context) : base(context) { }
 
+        //public override Company Add(Company c)
+        //{
+        //    c base.Add(entity);
+        //    ////Company? company =  
+        //    //var company = _table
+        //    //.Include(a => a.Address).Where(a => a.AddressId == c.AddressId)
+        //    //.Include(l => l.Login).Where(l => l.LoginId == c.LoginId)
+        //    //.Include(s => s.Siret).Where(s => s.SiretId == c.SiretId);
+
+        //    _context.SaveChanges();
+        //    //return company.FirstOrDefault();
+        //}
     }
 }

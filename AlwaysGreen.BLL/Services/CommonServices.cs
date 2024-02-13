@@ -97,7 +97,7 @@ namespace AlwaysGreen.BLL.Services
 
         public Login CreateLogin(string newUsername, byte[] newPswHashed, RolesEnum role)
         {
-            using TransactionScope transaction = new TransactionScope();
+            //using TransactionScope transaction = new TransactionScope();
             //1- controllo che non esista già
             //in realtà NON dovrebbe perché Username e Psw devono essere unici
             Login? oldLogin = _loginRepository.Get(newUsername);
@@ -106,16 +106,21 @@ namespace AlwaysGreen.BLL.Services
                 throw new Exception("esiste già un login con queste credenziali");
             }
             
-            //2- Add() login con il buon role
-            Login l = _loginRepository.Add(new Login()
+            ////2- Add() login con il buon role
+            //Login l = _loginRepository.Add(new Login()
+            //{
+            //    Username = newUsername,
+            //    Password = newPswHashed,
+            //    Roles = [role],
+            //});
+
+            //transaction.Complete();
+            return new Login()
             {
                 Username = newUsername,
                 Password = newPswHashed,
                 Roles = [role],
-            });
-
-            transaction.Complete();
-            return l;
+            };
         }
 
     }

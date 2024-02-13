@@ -48,23 +48,26 @@ namespace AlwaysGreen.BLL.Services
                 if (roles.Contains(RolesEnum.Company))
                 {
                     //creare Login in base al ruolo
-                    Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company);
+                    //Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company);
                     //Siret
                     Siret newSiret = _commonServices.FindOrCreateSiret(siret);
                     //creamo una Company: first creamo
-                    Company c = _companyRepository.Add(new Company()
+                    Company c1 = new Company()
                     {
                         AgencyName = agencyName,
                         CompanyName = companyName,
-                        PhoneNumber= phoneNumber,
-                        Email= email,
+                        PhoneNumber = phoneNumber,
+                        Email = email,
                         //Roles = [RolesEnum.Company],
                         IsActive = true,
                         AddressId = a.Id,
-                        LoginId = l.Id,
-                        VATnumber = VATnumber ?? null,
+                        // LoginId = l.Id,
+                        Login = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company),
+                    VATnumber = VATnumber ?? null,
                         SiretId = newSiret.Id,
-                    });
+                    };
+
+                    Company c = _companyRepository.Add(c1);
                     return c;
                 }
                 else if(roles.Contains(RolesEnum.Store))
@@ -134,7 +137,7 @@ namespace AlwaysGreen.BLL.Services
                 //return c ?? s ?? d ?? null;
 
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw new Exception("Non é stato possibile inserire l'utente-location");
             }
