@@ -49,5 +49,9 @@ namespace AlwaysGreen.DAL.Repositories
             else { return null; }
         }
 
+        public List<Login> GetAll()
+        {
+            return base.FindAll();
+        }
     }
 }

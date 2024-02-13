@@ -25,7 +25,7 @@ namespace AlwaysGreen.Controllers
         }
 
         [HttpPost("insert")]
-        public IActionResult Post([FromBody]RegisteredLocationDTO l)
+        public IActionResult Post([FromBody] RegisteredLocationDTO l)
         {
             try
             {
@@ -33,8 +33,8 @@ namespace AlwaysGreen.Controllers
 
                 Location data = _locationServices.Register(
                     l.AgencyName, l.CompanyName,
-                    l.PhoneNumber,l.Roles, l.Email,
-                    Mappers.ToDomain(l.Address), 
+                    l.PhoneNumber, l.Roles, l.Email,
+                    Mappers.ToDomain(l.Address),
                     l.Password, l.Username,
                     l.VATnumber, Mappers.ToDomain(l.Siret),
                     l.IsPickUpPoint,

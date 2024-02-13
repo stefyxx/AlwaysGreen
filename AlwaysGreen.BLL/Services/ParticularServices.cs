@@ -15,7 +15,8 @@ namespace AlwaysGreen.BLL.Services
     public class ParticularServices(
         IParticularRepository _particularRepository, IPasswordHasher _passwordHasher, 
         IAddressRepisitory _addressRepository, ILoginRepository _loginRepository,
-        HtmlRenderer _renderer, IMailer _mailer
+        HtmlRenderer _renderer, IMailer _mailer,
+        CommonServices _commonServices
         )
     {
         //getAll
@@ -33,25 +34,9 @@ namespace AlwaysGreen.BLL.Services
                 byte[] hash = _passwordHasher.Hash(Email + password);
 
                 //Add inserisce e ritorna Entity con id --> 
-                // prima controllo che non esista già
-                Address? addressExisting = _addressRepository.FindIsExisting(address);
-                Address a = new Address();
-                if (addressExisting == null)
-                {
-                    a = _addressRepository.Add(new Address()
-                    {
-                        // Id dato da inserted
-                        StreetName = address.StreetName,
-                        StreetNumber = address.StreetNumber,
-                        Apartment = address.Apartment ??  null,
-                        Unit = address.Unit ?? null,
-                        UnitNumber = address.UnitNumber ?? null,
-                        City = address.City,
-                        ZipCode = address.ZipCode,
-                        Country = address.Country
-                    });
-                }
-
+                //Address: controllo che non esista già, se non esiste, lo Add()
+                Address a = _commonServices.FindOrCreateAddress(address);
+                
                 // TODO : controllare che login non esista già
                 Login l = _loginRepository.Add(new Login()
                 {
@@ -69,8 +54,7 @@ namespace AlwaysGreen.BLL.Services
                     IsActive = true,
                     Email = Email,
                     //Roles = [RolesEnum.Particular], --> lo fa automaticamente C# --> NO INTO DB --> TODO: puo' dare problemi? ho login che ce l'ha
-                    AddressId = (addressExisting == null) ? a.Id : addressExisting.Id, //addressExisting.Id ?? a.Id,
-                    //Address = (addressExisting == null)? a : addressExisting, //indirizzo inserito, con buon Id
+                    AddressId = a.Id,
                     LoginId = l.Id,
                 });
 

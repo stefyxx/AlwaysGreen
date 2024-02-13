@@ -12,16 +12,24 @@ namespace AlwaysGreen.DAL.Repositories
 {
     public class LocationRepository : BaseRepository<Location>, ILocationRepository
     {
-        public LocationRepository(AlwaysgreenContext context) : base(context) { }
+        private readonly DbSet<Address> _addresses;
+        public LocationRepository(AlwaysgreenContext context) : base(context) {
+            _addresses = context.Addresses;
+        }
 
         public List<Location> GetAll()
         {
-            return _table
-                //.Include(t => ((Address)t.Address))
-                //.Include(a => a.Address)
-                .Where(t=> t.IsActive == true)
-                .OrderBy(t=> t.Email)
-                .ToList();
+            //error perché in context non ho DbSet di class abstract
+            //return _table
+            //    //.Include(a => a.Address)
+            //    .Where(t=> t.IsActive == true)
+            //    .OrderBy(t=> t.Email)
+            //    .ToList();
+            return base.FindAll().Join(_addresses, l => l.AddressId, a => a.Id, (l, a) =>
+            {
+                l.Address = a;
+                return l;
+            }).OrderBy(l => l.Email).ToList();
         }
     }
 }

@@ -88,6 +88,10 @@ namespace AlwaysGreen
             builder.Services.AddScoped<LocationServices>();
             builder.Services.AddScoped<IEmptybottleRepository, EmptybottleRepository>();
             builder.Services.AddScoped<EmptybottleServices>();
+            builder.Services.AddScoped<ICourierRepository, CourierRepository>();
+            builder.Services.AddScoped<CourierServices>();
+            builder.Services.AddScoped<CommonServices>();
+
 
             //mail
             builder.Services.AddScoped<HttpClient>();

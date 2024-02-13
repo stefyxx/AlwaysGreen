@@ -8,9 +8,13 @@ namespace AlwaysGreen.BLL.Services
 {
     public class LocationServices (ILocationRepository _locationRepository,
         IPasswordHasher _passwordHasher,
-        IAddressRepisitory _addressRepository, 
+        //IAddressRepisitory _addressRepository, 
         ILoginRepository _loginRepository,
-        HtmlRenderer _renderer, IMailer _mailer)
+        HtmlRenderer _renderer, IMailer _mailer,
+        CommonServices _commonServices,
+        IDepotRepository _depotRepository,
+        ICompanyRepository _companyRepository, IStoreRepository _storeRepository
+        )
     {
         public List<Location> GetAll()
         {
@@ -26,28 +30,109 @@ namespace AlwaysGreen.BLL.Services
         {
             try
             {
-                using TransactionScope transaction = new TransactionScope();
-                //registrazione --> Add
-                byte[] hash = _passwordHasher.Hash(email + password);
-                //find all email
-                //find all pwshashed
-                List<Location> locations = GetAll();
-                locations.Select(location=> location.Email = email);
+                //using TransactionScope transaction = new TransactionScope();
 
+                byte[] newPswHashed = _passwordHasher.Hash(email + password);
 
+                //1- controllare che username e/o psw non siano gà in DB
+                bool isPswOrUsernam = _commonServices.IsExistedUsernameOrPsw(username, newPswHashed);
+                if (isPswOrUsernam) { throw new Exception("password or Username exsist into DB"); }
+                // else username ET newPswHashed posso usarle nell' Add()
 
+                //2- controllare che email non sia già in DB
+                bool isEmailExsisted = _commonServices.IsExistedEmail(email);
+                if (isEmailExsisted) throw new Exception("The email exists into DB");
 
-                //isActive = true
-                //mettere Role in base alla class
-                //creare Login = mail
                 //address: creare o recuperare
+                Address a = _commonServices.FindOrCreateAddress(address);
 
+                //creare Login in base al ruolo
+                foreach (RolesEnum role in roles)
+                {
+                }                
+
+                //mettere Role in base alla class
+                if (roles.Contains(RolesEnum.Company))
+                {
+                    Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company);
+                    //creamo una Company: first creamo
+                    Company c = _companyRepository.Add(new Company()
+                    {
+                        AgencyName = agencyName,
+                        CompanyName = companyName,
+                        PhoneNumber= phoneNumber,
+                        Email= email,
+                        //Roles = [RolesEnum.Company],
+                        IsActive = true,
+                        AddressId = a.Id,
+                        LoginId = l.Id,
+                        VATnumber = VATnumber ?? null,
+                        //siret
+                    });
+                    return c;
+                }
+                else if(roles.Contains(RolesEnum.Store))
+                {
+                    Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Store);
+                    Store s = _storeRepository.Add(new Store() 
+                    {
+                        AgencyName = agencyName,
+                        CompanyName = companyName,
+                        PhoneNumber = phoneNumber,
+                        Email = email,
+                        //Roles = [RolesEnum.Store],
+                        IsActive = true,
+                        AddressId = a.Id,
+                        LoginId = l.Id,
+                        VATnumber = VATnumber ?? null,
+                        IsPickUpPoint = isPickUpPoint,
+                        IsStorePoint = isStorePoint
+                        //siret
+
+                    });
+                    return s;
+                }
+                else if (roles.Contains(RolesEnum.Depot))
+                {
+                    Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Depot);
+                    Depot d = _depotRepository.Add(new Depot()
+                    {
+                        AgencyName = agencyName,
+                        CompanyName = companyName,
+                        PhoneNumber = phoneNumber,
+                        Email = email,
+                        //Roles = [RolesEnum.Depot],
+                        IsActive = true,
+                        AddressId = a.Id,
+                        LoginId = l.Id,
+
+                    });
+                    return d;
+                }
 
                 //spedizione mail
+                //if (p.Id > 0)
+                //{
 
+                //    //particular creato, gli invio mail con Firstname+lastname, mail, vostro login é: Username, psw
+                //    //string html = _renderer.Render<Welcome>(
+                //    // new
+                //    // {
+                //    //     FirstName = p.FirstName,
+                //    //     LastName = p.LastName,
+                //    //     Email = p.Email,
 
-                transaction.Complete();
-                return;
+                //    //     Username = l.Username,
+                //    //     Psw = password
+                //    // }
+                //    // );
+                //    //_mailer.Send(p.Email, "Welcome among us", html);
+
+                //}
+                //else { throw new Exception(message: "particular mal inserito"); };
+
+                //transaction.Complete();
+                //return c ?? s ?? d ?? null;
 
             }
             catch (Exception)
