@@ -40,8 +40,8 @@ namespace AlwaysGreen.Controllers
                     l.IsPickUpPoint,
                     l.IsStorePoint
                     );
-                //LocationResultDTO result = Mappers.
-                //return Created("ok", result);
+                LocationResultDTO result = Mappers.ToDTO(data);
+                return Created("ok", result);
             }
             catch (ValidationException ex) { return BadRequest(ex.Message); }
         }

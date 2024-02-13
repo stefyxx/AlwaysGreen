@@ -10,10 +10,9 @@ using System.Threading.Tasks;
 
 namespace AlwaysGreen.DAL.Repositories
 {
-    public class StoreRepository : BaseRepository<Store>, IStoreRepository
+    public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        public StoreRepository(AlwaysgreenContext context) : base(context) { }
-
+        public CompanyRepository(AlwaysgreenContext context) : base(context) { }
 
     }
 }

@@ -91,6 +91,14 @@ namespace AlwaysGreen
             builder.Services.AddScoped<ICourierRepository, CourierRepository>();
             builder.Services.AddScoped<CourierServices>();
             builder.Services.AddScoped<CommonServices>();
+            builder.Services.AddScoped<IStoreRepository, StoreRepository>();
+            builder.Services.AddScoped<StoreServices>();
+            builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
+            builder.Services.AddScoped<CompanyServices>();
+            builder.Services.AddScoped<IDepotRepository, DepotRepository>();
+            builder.Services.AddScoped<DepotServices>();
+            builder.Services.AddScoped<ISiretRepository, SiretRepository>();
+
 
 
             //mail

@@ -10,7 +10,8 @@ namespace AlwaysGreen.BLL.Services
         IParticularRepository _particularRepository,
         ICourierRepository _courierRepository,
         ILoginRepository _loginRepository,
-        IAddressRepisitory _addressRepository
+        IAddressRepisitory _addressRepository,
+        ISiretRepository _siretRepository
         )
     {
         public bool IsExistedEmail(string newEmail)
@@ -70,6 +71,28 @@ namespace AlwaysGreen.BLL.Services
                 return a;
             }
             else return addressExisting;
+        }
+        public Siret FindOrCreateSiret(Siret siret)
+        {
+            Siret s = new Siret();
+            if(siret == null)
+            {
+                throw new ArgumentNullException("inserire un SIRET");
+            }
+            else
+            {
+                Siret? siretExisting = _siretRepository.FindIsExisting(siret);
+                if (siretExisting == null) 
+                {
+                    s = _siretRepository.Add(new Siret() 
+                    { 
+                        Siren = siret.Siren,
+                        NIC = siret.NIC
+                    });
+                    return s;
+                }
+                else return siretExisting;
+            }
         }
 
         public Login CreateLogin(string newUsername, byte[] newPswHashed, RolesEnum role)

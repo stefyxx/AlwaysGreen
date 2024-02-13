@@ -65,6 +65,18 @@ namespace AlwaysGreen.Functions
             };
         }
 
+        public static LocationResultDTO ToDTO(Location data)
+        {
+            return new LocationResultDTO()
+            {
+                Id = data.Id,
+                AgencyName= data.AgencyName,
+                CompanyName= data.CompanyName,
+                Roles = data.Roles,
+                Address = data.Address.ToDTO(),
+                Username = data.Login.Username
+            };
+        }
         public static Particular toDAL(this RegisteredParticularDTO p)
         {
             return new Particular()

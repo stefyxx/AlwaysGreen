@@ -22,16 +22,13 @@ namespace AlwaysGreen.BLL.Services
         }
 
         public Location Register(
-            string? agencyName, string?companyName,
-            string phoneNumber,RolesEnum[] roles, string email,
-            Address address, string password, string username,
-            string? VATnumber, Siret siret, 
+            string? agencyName, string?companyName, string phoneNumber,RolesEnum[] roles, string email,
+            Address address, string password, string username, string? VATnumber, Siret siret, 
             bool isPickUpPoint, bool isStorePoint)
         {
             try
             {
                 //using TransactionScope transaction = new TransactionScope();
-
                 byte[] newPswHashed = _passwordHasher.Hash(email + password);
 
                 //1- controllare che username e/o psw non siano gà in DB
@@ -46,15 +43,14 @@ namespace AlwaysGreen.BLL.Services
                 //address: creare o recuperare
                 Address a = _commonServices.FindOrCreateAddress(address);
 
-                //creare Login in base al ruolo
-                foreach (RolesEnum role in roles)
-                {
-                }                
 
                 //mettere Role in base alla class
                 if (roles.Contains(RolesEnum.Company))
                 {
+                    //creare Login in base al ruolo
                     Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company);
+                    //Siret
+                    Siret newSiret = _commonServices.FindOrCreateSiret(siret);
                     //creamo una Company: first creamo
                     Company c = _companyRepository.Add(new Company()
                     {
@@ -67,13 +63,15 @@ namespace AlwaysGreen.BLL.Services
                         AddressId = a.Id,
                         LoginId = l.Id,
                         VATnumber = VATnumber ?? null,
-                        //siret
+                        SiretId = newSiret.Id,
                     });
                     return c;
                 }
                 else if(roles.Contains(RolesEnum.Store))
                 {
                     Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Store);
+                    //Siret
+                    Siret newSiret = _commonServices.FindOrCreateSiret(siret);
                     Store s = _storeRepository.Add(new Store() 
                     {
                         AgencyName = agencyName,
@@ -86,8 +84,8 @@ namespace AlwaysGreen.BLL.Services
                         LoginId = l.Id,
                         VATnumber = VATnumber ?? null,
                         IsPickUpPoint = isPickUpPoint,
-                        IsStorePoint = isStorePoint
-                        //siret
+                        IsStorePoint = isStorePoint,
+                        SiretId = newSiret.Id,
 
                     });
                     return s;
@@ -109,6 +107,7 @@ namespace AlwaysGreen.BLL.Services
                     });
                     return d;
                 }
+                else { throw new Exception(); }
 
                 //spedizione mail
                 //if (p.Id > 0)
@@ -137,7 +136,7 @@ namespace AlwaysGreen.BLL.Services
             }
             catch (Exception)
             {
-                throw new Exception("L'email n'a pas pu être envoyé");
+                throw new Exception("Non é stato possibile inserire l'utente-location");
             }
 
         }
