@@ -40,17 +40,17 @@ namespace AlwaysGreen.BLL.Services
                 bool isEmailExsisted = _commonServices.IsExistedEmail(email);
                 if (isEmailExsisted) throw new Exception("The email exists into DB");
 
-                //address: creare o recuperare
-                Address a = _commonServices.FindOrCreateAddress(address);
-
-
+                //address - login - siret: crearli contemporaneamente alla creazione di location permette
+                //1- di non crearli PRIMA == sono creati anche se NON concludo la creaz di location
+                //2- DI FARE UN SOLO 'collegamento' (scoopped) con la BD 
+               
                 //mettere Role in base alla class
                 if (roles.Contains(RolesEnum.Company))
                 {
                     //creare Login in base al ruolo
                     //Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company);
                     //Siret
-                    Siret newSiret = _commonServices.FindOrCreateSiret(siret);
+                    //Siret newSiret = _commonServices.FindOrCreateSiret(siret);
                     //creamo una Company: first creamo
                     Company c1 = new Company()
                     {
@@ -60,11 +60,14 @@ namespace AlwaysGreen.BLL.Services
                         Email = email,
                         //Roles = [RolesEnum.Company],
                         IsActive = true,
-                        AddressId = a.Id,
+                        Address = _commonServices.FindOrCreateAddress(address),
+                        //AddressId = a.Id,
                         // LoginId = l.Id,
                         Login = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company),
-                    VATnumber = VATnumber ?? null,
-                        SiretId = newSiret.Id,
+                        VATnumber = VATnumber ?? null,
+                        Siret = _commonServices.FindOrCreateSiret(siret),
+                        //SiretId = newSiret.Id,
+
                     };
 
                     Company c = _companyRepository.Add(c1);
@@ -72,9 +75,6 @@ namespace AlwaysGreen.BLL.Services
                 }
                 else if(roles.Contains(RolesEnum.Store))
                 {
-                    Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Store);
-                    //Siret
-                    Siret newSiret = _commonServices.FindOrCreateSiret(siret);
                     Store s = _storeRepository.Add(new Store() 
                     {
                         AgencyName = agencyName,
@@ -83,19 +83,17 @@ namespace AlwaysGreen.BLL.Services
                         Email = email,
                         //Roles = [RolesEnum.Store],
                         IsActive = true,
-                        AddressId = a.Id,
-                        LoginId = l.Id,
+                        Address = _commonServices.FindOrCreateAddress(address),
+                        Login = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Company),
                         VATnumber = VATnumber ?? null,
                         IsPickUpPoint = isPickUpPoint,
                         IsStorePoint = isStorePoint,
-                        SiretId = newSiret.Id,
-
+                        Siret = _commonServices.FindOrCreateSiret(siret)
                     });
                     return s;
                 }
                 else if (roles.Contains(RolesEnum.Depot))
                 {
-                    Login l = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Depot);
                     Depot d = _depotRepository.Add(new Depot()
                     {
                         AgencyName = agencyName,
@@ -104,8 +102,8 @@ namespace AlwaysGreen.BLL.Services
                         Email = email,
                         //Roles = [RolesEnum.Depot],
                         IsActive = true,
-                        AddressId = a.Id,
-                        LoginId = l.Id,
+                        Address = _commonServices.FindOrCreateAddress(address),
+                        Login = _commonServices.CreateLogin(username, newPswHashed, RolesEnum.Depot),
 
                     });
                     return d;

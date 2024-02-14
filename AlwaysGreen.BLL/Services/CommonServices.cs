@@ -56,7 +56,8 @@ namespace AlwaysGreen.BLL.Services
             Address a = new Address();
             if (addressExisting == null)
             {
-                a = _addressRepository.Add(new Address()
+                //a = _addressRepository.Add(new Address()
+                return new Address()        //perché DEVE essere creato SOLO se creo un Location aut particular aut courier
                 {
                     // Id dato da inserted
                     StreetName = address.StreetName,
@@ -67,14 +68,15 @@ namespace AlwaysGreen.BLL.Services
                     City = address.City,
                     ZipCode = address.ZipCode,
                     Country = address.Country
-                });
-                return a;
+                };
+                //);
+                //return a;
             }
             else return addressExisting;
         }
         public Siret FindOrCreateSiret(Siret siret)
         {
-            Siret s = new Siret();
+            //Siret s = new Siret();
             if(siret == null)
             {
                 throw new ArgumentNullException("inserire un SIRET");
@@ -84,12 +86,14 @@ namespace AlwaysGreen.BLL.Services
                 Siret? siretExisting = _siretRepository.FindIsExisting(siret);
                 if (siretExisting == null) 
                 {
-                    s = _siretRepository.Add(new Siret() 
-                    { 
+                    //s = _siretRepository.Add(new Siret()
+                    return new Siret()
+                    {
                         Siren = siret.Siren,
                         NIC = siret.NIC
-                    });
-                    return s;
+                    };
+                    //);
+                    //return s;
                 }
                 else return siretExisting;
             }
@@ -97,7 +101,6 @@ namespace AlwaysGreen.BLL.Services
 
         public Login CreateLogin(string newUsername, byte[] newPswHashed, RolesEnum role)
         {
-            //using TransactionScope transaction = new TransactionScope();
             //1- controllo che non esista già
             //in realtà NON dovrebbe perché Username e Psw devono essere unici
             Login? oldLogin = _loginRepository.Get(newUsername);
@@ -106,15 +109,13 @@ namespace AlwaysGreen.BLL.Services
                 throw new Exception("esiste già un login con queste credenziali");
             }
             
-            ////2- Add() login con il buon role
+            ////2- Add() login con il buon role --> INSERISCE automaticamente, alla creaz di Location
             //Login l = _loginRepository.Add(new Login()
             //{
             //    Username = newUsername,
             //    Password = newPswHashed,
             //    Roles = [role],
             //});
-
-            //transaction.Complete();
             return new Login()
             {
                 Username = newUsername,
