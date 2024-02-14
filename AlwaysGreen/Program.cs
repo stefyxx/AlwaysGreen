@@ -98,6 +98,8 @@ namespace AlwaysGreen
             builder.Services.AddScoped<IDepotRepository, DepotRepository>();
             builder.Services.AddScoped<DepotServices>();
             builder.Services.AddScoped<ISiretRepository, SiretRepository>();
+            builder.Services.AddScoped<ITransportRepository, TransportRepository>();
+            builder.Services.AddScoped<TransportServices>();
 
 
 

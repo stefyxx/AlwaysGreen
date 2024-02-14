@@ -29,8 +29,6 @@ namespace AlwaysGreen.Controllers
         {
             try
             {
-                //forse avro' problemi con roles --> mapper
-
                 Location data = _locationServices.Register(
                     l.AgencyName, l.CompanyName,
                     l.PhoneNumber, l.Roles, l.Email,

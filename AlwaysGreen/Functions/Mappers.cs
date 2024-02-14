@@ -74,14 +74,7 @@ namespace AlwaysGreen.Functions
                 CompanyName= data.CompanyName,
                 Roles = data.Roles.ToArray(),
                 Address = data.Address.ToDTO(),
-                Username = data.Login.Username
-            };
-        }
-        public static Particular toDAL(this RegisteredParticularDTO p)
-        {
-            return new Particular()
-            {
-
+                Username = data.Login.Username,
             };
         }
     }

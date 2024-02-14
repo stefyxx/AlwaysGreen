@@ -31,7 +31,7 @@ namespace AlwaysGreen.DAL.Repositories
                 .ToList();
         }
 
-        //non serve, add lo fa
+        //non serve, add lo fa perché 'entity contiene le FK
         //public Particular? Insert(Particular entity, int AddressId, int LoginId)
         //{
         //    //return base.Add(entity);
@@ -45,15 +45,16 @@ namespace AlwaysGreen.DAL.Repositories
         //        .FirstOrDefault();
         //}
 
+        //non serve, p contiene le FK
+        //public override void Update(Particular p)
+        //{
+        //    _table
+        //        .Include(a => a.Address).Where(a=> a.AddressId == p.AddressId)
+        //        .Include(l => l.Login).Where(l=> l.LoginId == p.LoginId)
+        //        .ExecuteUpdate(p);
 
-        public override void Update(Particular p)
-        {
-            _table
-                .Include(a => a.Address).Where(a=> a.AddressId == p.AddressId)
-                .Include(l => l.Login).Where(l=> l.LoginId == p.LoginId);
-
-            _context.SaveChanges();
-        }
+        //    _context.SaveChanges();
+        //}
         
         //recupero p con Id perché é preso dal User connected
         public Particular? myUpdate(Particular p, string username, string email, int addressId, string phoneNumber, byte[] psw)
