@@ -29,10 +29,8 @@ namespace AlwaysGreen.Domain.Entities
         [ForeignKey("AddressId")]
         public Address Address { get; set; }
 
-        //puo' essere = ? perché é relaz 0-N
-        public int? TransportId { get; set; }
-        [ForeignKey("TransportId")]
-        public Transport? Transport { get; set; }
+       
+        public List<Transport> Courriers { get; set; } = [];
         #endregion
 
     }

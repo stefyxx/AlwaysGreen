@@ -22,16 +22,20 @@ namespace AlwaysGreen.Domain.Entities
 
         #endregion
 
+
         #region FK
+        public int? LocationsFromId { get; set; }
+        [ForeignKey("TransportFromId")]
+        public Location? LocationsFrom { get; set; }
+        public int? LocationsToId { get; set; }
+        [ForeignKey("TransportToId")]
+        public Location? LocationsTo { get; set; }
 
-        [InverseProperty("TransportFrom")]
-        public List<Location> LocationsFrom { get; set; } = [];
+        //puo' essere = ? perché é relaz 0-N
+        public int? CourierId { get; set; }
+        [ForeignKey("TransportId")]
+        public Courier? Courier { get; set; }
 
-        [InverseProperty("TransportTo")]
-        public List<Location> LocationsTo { get; set; } = [];
-
-
-        public List<Courier> Courriers { get; set; } = [];
         #endregion
 
     }

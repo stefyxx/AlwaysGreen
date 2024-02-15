@@ -43,13 +43,14 @@ namespace AlwaysGreen.Domain.Entities
         [ForeignKey("LoginId")]
         public Login Login { get; set; }
 
-        public int? TransportFromId { get; set; }
-        [ForeignKey("TransportFromId")]
-        public Transport? TransportFrom { get; set; }
+        
 
-        public int? TransportToId { get; set; }
-        [ForeignKey("TransportToId")]
-        public Transport? TransportTo { get; set; }
+        [InverseProperty("TransportFrom")]
+        public List<Transport> TransportFrom { get; set; } = [];
+
+        [InverseProperty("TransportTo")]
+        public List<Transport> TransportTo { get; set; } = [];
+
         #endregion
 
     }

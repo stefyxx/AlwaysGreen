@@ -17,6 +17,6 @@ namespace AlwaysGreen.DTO
         DepotDTO locationTo { get; set; }
 
         //5- corriere utilizzato --> se non c'é lo creo
-        Courier Courier { get; set; }
+        CourierDTO Courier { get; set; }
     }
 }

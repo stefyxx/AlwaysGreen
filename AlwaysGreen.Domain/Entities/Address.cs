@@ -27,5 +27,14 @@ namespace AlwaysGreen.Domain.Entities
         [Column(TypeName = "char(4)")]
         public string ZipCode { get; set; }
         public string Country { get; set; }
+
+        #region FK
+
+        public List<Location> Locations { get; set; }
+        public List<Particular> Particulars { get; set; }
+        public List<Courier> Couriers { get; set; }
+
+        #endregion
+
     }
 }
