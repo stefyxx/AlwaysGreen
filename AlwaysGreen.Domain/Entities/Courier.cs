@@ -30,7 +30,7 @@ namespace AlwaysGreen.Domain.Entities
         public Address Address { get; set; }
 
        
-        public List<Transport> Courriers { get; set; } = [];
+        public List<Transport> Transports { get; set; } = [];
         #endregion
 
     }

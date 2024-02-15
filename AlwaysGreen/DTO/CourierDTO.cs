@@ -1,22 +1,24 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AlwaysGreen.DTO
 {
     public class CourierDTO
     {
-        public string Name { get; set; }
+        public required string Name { get; set; }
 
         [Column(TypeName = "varchar(15)")]
-        public string PhoneNumber { get; set; }
+        public required string PhoneNumber { get; set; }
 
         [Column(TypeName = "varchar(75)")]
-        public string Email { get; set; }
+        [EmailAddress]
+        public required string Email { get; set; }
 
         //numéro de TVA
-        public string VATnumber { get; set; }
+        public required string VATnumber { get; set; }
 
         public bool IsActive { get; set; }
-        public AddressDTO Address { get; set; }
+        public AddressCreateDTO Address { get; set; }
 
     }
 }

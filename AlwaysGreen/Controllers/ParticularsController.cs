@@ -68,9 +68,9 @@ namespace AlwaysGreen.Controllers
 
 
         // PUT api/<ParticularsController>/5  --> [HttpPut("{id}")]
-        //[Authorize(Roles = "Particular")]
         [HttpPut("Delete")]
-        [Authorize]
+        //[Authorize]
+        [Authorize(Roles = "Particular")]
         public IActionResult Update([FromBody] ParticularUpdateDTO updateDTO, [FromQuery]string? cancelLink)
         {
             bool isConnected = User != null;

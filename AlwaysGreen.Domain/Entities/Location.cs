@@ -30,7 +30,7 @@ namespace AlwaysGreen.Domain.Entities
         public string Email { get; set; }
 
         //es Delaize puo' essere sia un enterprise che un magasin
-        public abstract List<RolesEnum> Roles { get; }
+        public abstract RolesEnum[] Roles { get; }
 
         public bool IsActive { get; set; } = true;
 
@@ -45,11 +45,11 @@ namespace AlwaysGreen.Domain.Entities
 
         
 
-        [InverseProperty("TransportFrom")]
-        public List<Transport> TransportFrom { get; set; } = [];
+        [InverseProperty("LocationFrom")]
+        public List<Transport> TransportsFrom { get; set; } = [];
 
-        [InverseProperty("TransportTo")]
-        public List<Transport> TransportTo { get; set; } = [];
+        [InverseProperty("LocationTo")]
+        public List<Transport> TransportsTo { get; set; } = [];
 
         #endregion
 

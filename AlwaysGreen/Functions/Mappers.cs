@@ -21,6 +21,7 @@ namespace AlwaysGreen.Functions
             };
             return converson;
         }
+
         public static Address ToDomain(this AddressCreateDTO data)
         {
             if (data is null) return null;
@@ -75,6 +76,19 @@ namespace AlwaysGreen.Functions
                 Roles = data.Roles.ToArray(),
                 Address = data.Address.ToDTO(),
                 Username = data.Login.Username,
+            };
+        }
+        public static CourierResultDTO ToDTO(this Courier data)
+        {
+            return new CourierResultDTO()
+            {
+                Id = data.Id,
+                Name = data.Name,
+                PhoneNumber = data.PhoneNumber,
+                Email = data.Email,
+                VATnumber = data.VATnumber,
+                IsActive = data.IsActive,
+                Address = data.Address.ToDTO()
             };
         }
 

@@ -28,8 +28,9 @@ namespace AlwaysGreen.Controllers
                 else email = l.Depot.Email;
 
                 // --> CreateToken (string username, string identifier, string email, params string[] roles)
-                string token = _jwtManager.CreateToken(l.Username, l.Id.ToString(), email, l.Roles.ToString());
-
+                string token = _jwtManager.CreateToken(l.Username, l.Id.ToString(), email, l.Roles.Select(r => r.ToString()).ToArray());
+                // property = RolesEnum[] --> l.Roles.Select(r => r.ToString()).ToArray()
+                //property = RolesEnum; ossia non ho un array di RolesEnum, ma solo 1 rolesEnum  --> l.Roles.ToString()
                 return Ok(new { Token = token });
                 
             }

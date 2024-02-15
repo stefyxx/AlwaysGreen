@@ -18,7 +18,7 @@ namespace AlwaysGreen.DAL.Repositories
         {
            return _table
                 .Include(a=> a.Address)
-                .Include(t=> t.Transport)
+                .Include(t=> t.Transports)
                 .ToList();
         }
 
@@ -32,12 +32,9 @@ namespace AlwaysGreen.DAL.Repositories
             throw new NotImplementedException();
         }
 
-
         //Add--> é il Depot, la segretaria, che inserisce un courrier
         //--> role = Depot
         //NBBB sarà depot che deve controllare che la mail di Courrier non esista già in DB
-        
-
 
         public void Delete(Courier e)
         {

@@ -2,8 +2,8 @@
 {
     public class AddressCreateDTO
     {
-        public string StreetName { get; set; }
-        public string StreetNumber { get; set; }
+        public required string StreetName { get; set; }
+        public required string StreetNumber { get; set; }
 
         #region nb:
         //a volte hai Apartment --> corrisp a 13A
@@ -13,8 +13,8 @@
         public string? UnitNumber { get; set; }
         #endregion
 
-        public string City { get; set; }
-        public string ZipCode { get; set; }
-        public string Country { get; set; }
+        public required string City { get; set; }
+        public required string ZipCode { get; set; }
+        public required string Country { get; set; }
     }
 }

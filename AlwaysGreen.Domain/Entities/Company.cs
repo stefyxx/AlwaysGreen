@@ -12,7 +12,7 @@ namespace AlwaysGreen.Domain.Entities
     {
         //numéro de TVA
         public string VATnumber { get; set; }
-        public override List<RolesEnum> Roles { get => new List<RolesEnum> { RolesEnum.Company }; }
+        public override RolesEnum[] Roles { get =>[RolesEnum.Company]; }
 
         #region FK
         public int? SiretId { get; set; }

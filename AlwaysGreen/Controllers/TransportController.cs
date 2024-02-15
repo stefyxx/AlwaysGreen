@@ -19,7 +19,6 @@ namespace AlwaysGreen.Controllers
         {
             try
             {
-
                 List<Transport> loctions = _transportServices.GetAll();
                 return Ok(loctions);
             }
@@ -41,7 +40,7 @@ namespace AlwaysGreen.Controllers
         //    {
         //        List<Emptybottle> emptybottles = new List<Emptybottle>();
         //        t.Emptybottles.ForEach(e => emptybottles.Add(e.ToDomain()));
-                
+
 
         //        Transport data = _transportServices.Register(
         //            emptybottles
