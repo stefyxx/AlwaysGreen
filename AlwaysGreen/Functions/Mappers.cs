@@ -130,6 +130,19 @@ namespace AlwaysGreen.Functions
                 Address = data.Address.ToDomain()
             };
         }
+        public static CourierResultDTO ToDTO(this Courier data)
+        {
+            return new CourierResultDTO()
+            {
+                Id = data.Id,
+                Name = data.Name,
+                PhoneNumber = data.PhoneNumber,
+                Email = data.Email,
+                VATnumber = data.VATnumber,
+                IsActive = data.IsActive,
+                Address = data.Address.ToDTO()
+            };
+        }
 
         public static TransportResultDTO ToDTO(Transport t)
         {
@@ -146,7 +159,9 @@ namespace AlwaysGreen.Functions
                     };
 
                 }).ToList(),
-
+                LocationFrom = ToDTO(t.LocationFrom),
+                LocationTo = ToDTO(t.LocationTo),
+                Courier = ToDTO(t.Courier)
             };
         }
         public static Emptybottle ToDomain(this EmptybottleTransportedDTO e)

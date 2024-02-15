@@ -41,7 +41,9 @@ namespace AlwaysGreen.Controllers
             {
 
                 List<Emptybottle> emptybottles = new List<Emptybottle>();
-                t.Emptybottles.ForEach(e => emptybottles.Add(e.ToDomain()));
+                t.Emptybottles.ForEach(eB => {
+                    emptybottles.Add(eB.ToDomain()); 
+                });
 
                 Transport data = _transportServices.Register(emptybottles, t.LocationFromId,t.LocationToId, t.CourierId);
                 TransportResultDTO result = Mappers.ToDTO(data);

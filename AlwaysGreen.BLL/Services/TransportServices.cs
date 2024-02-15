@@ -9,7 +9,17 @@ namespace AlwaysGreen.BLL.Services
 
         public Transport Register(List<Emptybottle> emptybottles, int locationFromId, int locationToId, int courierId)
         {
+            //per ogni emptybottle bisogna 
+            //1- creare una Delivery con la quantity
+            //2- modificare lo stock
+            Transport transport = new Transport();
+            transport.LocationFromId = locationFromId;
+            transport.LocationsToId = locationToId;
+            transport.CourierId = courierId;
+            transport.Emptybottles = emptybottles;
 
+
+            return transport;
         }
 
     }
