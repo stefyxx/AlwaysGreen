@@ -18,24 +18,26 @@ namespace AlwaysGreen.DAL.Repositories
         {
             _addresses = context.Addresses;
         }
-        public List<Transport> GetAll() => _table
+        public List<Transport> GetAll()
+        {
+            return _table
                .Include(t => t.Deliveries)
                .Include(t => t.Emptybottles)
-               .Include(t => t.LocationsFrom)
-               .Join(_addresses , t => t.LocationsFrom, a
-                    .Join(_addresses, lo => lo.AddressId, a => a.Id, (lo, a) =>
-                       {
-                           lo.Address = a;
-                           return lo;
-                       })
+               .Include(t => t.LocationsFrom
+                    //.Join(_addresses, lo => lo.AddressId, a => a.Id, (l, addr) => 
+                    //{ 
+                    //    l.Address = addr; 
+                    //    return l;
+                    //}
+                    //)
                )
-
                //.ThenInclude(l => l.Address)
                .Include(t => t.LocationsTo)
-               .ThenInclude(l => l.Address)
+               //.ThenInclude(l => l.Address)
                .Include(t => t.Courriers)
-               .ThenInclude(c => c.Address)
+               //.ThenInclude(c => c.Address)
                .ToList();
+        }
         public Transport? Find(params object[] id)
         {
             return _table
