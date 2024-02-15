@@ -7,7 +7,10 @@ namespace AlwaysGreen.BLL.Services
     {
         public List<Transport> GetAll() { return _transportRepository.GetAll(); }
 
+        public Transport Register(List<Emptybottle> emptybottles, int locationFromId, int locationToId, int courierId)
+        {
 
+        }
 
     }
 }

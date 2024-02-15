@@ -11,6 +11,7 @@ namespace AlwaysGreen.DTO
 
         //é un pt dove spendere i buoni?
         public bool IsStorePoint { get; set; }
+        public bool IsActive { get; set; }
         
         public SiretDTO Siret { get; set; }
     }

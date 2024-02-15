@@ -78,9 +78,48 @@ namespace AlwaysGreen.Functions
                 Username = data.Login.Username,
             };
         }
-        public static CourierResultDTO ToDTO(this Courier data)
+        //public static Store ToDomain(this StoreDTO s)
+        //{
+        //    return new Store()
+        //    {
+        //        Id = s.Id,
+        //        AgencyName = s.AgencyName,
+        //        CompanyName = s.CompanyName,
+        //        Address = s.Address.ToDomain(),
+        //        VATnumber = s.VATnumber,
+        //        IsPickUpPoint = s.IsPickUpPoint,
+        //        IsStorePoint = s.IsStorePoint,
+        //        Siret = s.Siret.ToDomain(),
+        //        IsActive = s.IsActive,
+        //    };
+        //}
+        
+        //public static Depot ToDomain(this DepotDTO s)
+        //{
+        //    return new Depot()
+        //    {
+        //        Id = s.Id,
+        //        AgencyName = s.AgencyName,
+        //        CompanyName = s.CompanyName,
+        //        Address = s.Address.ToDomain(),
+        //    };
+        //}
+        //public static CourierResultDTO ToDTO(this Courier data)
+        //{
+        //    return new CourierResultDTO()
+        //    {
+        //        Id = data.Id,
+        //        Name = data.Name,
+        //        PhoneNumber = data.PhoneNumber,
+        //        Email = data.Email,
+        //        VATnumber = data.VATnumber,
+        //        IsActive = data.IsActive,
+        //        Address = data.Address.ToDTO()
+        //    };
+        //}
+        public static Courier ToDomain(this CourierResultDTO data)
         {
-            return new CourierResultDTO()
+            return new Courier()
             {
                 Id = data.Id,
                 Name = data.Name,
@@ -88,10 +127,28 @@ namespace AlwaysGreen.Functions
                 Email = data.Email,
                 VATnumber = data.VATnumber,
                 IsActive = data.IsActive,
-                Address = data.Address.ToDTO()
+                Address = data.Address.ToDomain()
             };
         }
 
+        public static TransportResultDTO ToDTO(Transport t)
+        {
+            return new TransportResultDTO()
+            {
+                Id = t.Id,
+                Date = t.Date,
+                Emptybottles = t.Deliveries.Select(delivery =>
+                {
+                    return new EmptybottleTransportedDTO()
+                    {
+                        TypeName = delivery.Emptybottle.TypeName,
+                        Quantity = delivery.QuantityTransported
+                    };
+
+                }).ToList(),
+
+            };
+        }
         public static Emptybottle ToDomain(this EmptybottleTransportedDTO e)
         {
             return new Emptybottle()

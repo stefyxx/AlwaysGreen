@@ -34,24 +34,23 @@ namespace AlwaysGreen.Controllers
 
         // POST api/<TransportController>
         [HttpPost("insert")]
-        //public IActionResult Post([FromBody] TransportRegisteredDTO t)
-        //{
-        //    try
-        //    {
-        //        List<Emptybottle> emptybottles = new List<Emptybottle>();
-        //        t.Emptybottles.ForEach(e => emptybottles.Add(e.ToDomain()));
+        //[Authorize(Roles = "Depot")]
+        public IActionResult Post([FromBody] TransportRegisteredDTO t)
+        {
+            try
+            {
 
+                List<Emptybottle> emptybottles = new List<Emptybottle>();
+                t.Emptybottles.ForEach(e => emptybottles.Add(e.ToDomain()));
 
-        //        Transport data = _transportServices.Register(
-        //            emptybottles
+                Transport data = _transportServices.Register(emptybottles, t.LocationFromId,t.LocationToId, t.CourierId);
+                TransportResultDTO result = Mappers.ToDTO(data);
+                return Created("ok", result);
 
-        //            );
-        //        //TransportResultDTO result = Mappers.ToDTO(data);
-        //        //return Created("ok", result);
-        //    }
-        //    catch (ValidationException ex) { return BadRequest(ex.Message); }
+            }
+            catch (ValidationException ex) { return BadRequest(ex.Message); }
 
-        //}
+        }
 
         // PUT api/<TransportController>/5
         [HttpPut("{id}")]
