@@ -17,7 +17,7 @@ namespace AlwaysGreen.Domain.Entities
         #region Store
 
         //é un pt di raccolta?
-        public bool IsPickUpPoint { get; set; } = true;
+        public bool IsPickUpPoint { get; set; }
 
         //é un pt dove spendere i buoni?
         public bool IsStorePoint { get; set; }

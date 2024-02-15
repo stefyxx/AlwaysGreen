@@ -77,6 +77,15 @@ namespace AlwaysGreen.Functions
                 Username = data.Login.Username,
             };
         }
+
+        public static Emptybottle ToDomain(this EmptybottleTransportedDTO e)
+        {
+            return new Emptybottle()
+            {
+                TypeName = e.TypeName,
+                Quantity = e.Quantity,
+            };
+        }
     }
 
 }

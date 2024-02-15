@@ -5,7 +5,7 @@ using System.Configuration;
 
 namespace AlwaysGreen.DTO
 {
-    public class RegisteredLocationDTO
+    public class LocationRegisteredDTO
     {
         //Depot : AgencyName
         //Store: AgencyName + CompanyName

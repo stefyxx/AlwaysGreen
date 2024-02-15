@@ -39,7 +39,7 @@ namespace AlwaysGreen.Controllers
 
         // POST api/<EmptybottleController>
         [HttpPost("add")]
-        public IActionResult Post([FromBody] UpdateEmptybottleDTO value)
+        public IActionResult Post([FromBody] EmptybottleUpdateDTO value)
         {
             try
             {
@@ -59,7 +59,7 @@ namespace AlwaysGreen.Controllers
 
         // PUT api/<EmptybottleController>/5
         [HttpPut("{id}")] //--> anche x updatare le quantities
-        public IActionResult Put(int id, [FromBody] UpdateEmptybottleDTO value)
+        public IActionResult Put(int id, [FromBody] EmptybottleUpdateDTO value)
         {
             try
             {

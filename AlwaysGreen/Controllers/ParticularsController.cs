@@ -38,7 +38,7 @@ namespace AlwaysGreen.Controllers
 
         // POST api/<ParticularsController>
         [HttpPost]
-        public IActionResult Post([FromBody] RegisteredParticularDTO d)
+        public IActionResult Post([FromBody] ParticularRegisteredDTO d)
         {
             //registered a particular --> return void, ma io voglio un IActionResult che mi da ok se creato
             try
@@ -71,7 +71,7 @@ namespace AlwaysGreen.Controllers
         //[Authorize(Roles = "Particular")]
         [HttpPut("Delete")]
         [Authorize]
-        public IActionResult Update([FromBody] UpdateParticularDTO updateDTO, [FromQuery]string? cancelLink)
+        public IActionResult Update([FromBody] ParticularUpdateDTO updateDTO, [FromQuery]string? cancelLink)
         {
             bool isConnected = User != null;
             if (isConnected)

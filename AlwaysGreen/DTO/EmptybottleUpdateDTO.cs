@@ -2,7 +2,7 @@
 
 namespace AlwaysGreen.DTO
 {
-    public class UpdateEmptybottleDTO
+    public class EmptybottleUpdateDTO
     {
         public required string TypeName { get; set; } = null!;
 

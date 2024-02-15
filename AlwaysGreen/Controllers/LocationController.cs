@@ -25,7 +25,7 @@ namespace AlwaysGreen.Controllers
         }
 
         [HttpPost("insert")]
-        public IActionResult Post([FromBody] RegisteredLocationDTO l)
+        public IActionResult Post([FromBody] LocationRegisteredDTO l)
         {
             try
             {

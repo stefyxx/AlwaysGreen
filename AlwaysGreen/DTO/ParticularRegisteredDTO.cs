@@ -5,7 +5,7 @@ using System.Configuration;
 
 namespace AlwaysGreen.DTO
 {
-    public class RegisteredParticularDTO : UpdateParticularDTO
+    public class ParticularRegisteredDTO : ParticularUpdateDTO
     {
         [Required]
         [MaxLength(100)]

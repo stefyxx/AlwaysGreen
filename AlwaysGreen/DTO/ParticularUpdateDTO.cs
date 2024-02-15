@@ -3,7 +3,7 @@ using System.Configuration;
 
 namespace AlwaysGreen.DTO
 {
-    public class UpdateParticularDTO
+    public class ParticularUpdateDTO
     {
         [Required]
         public string PhoneNumber { get; set; }
