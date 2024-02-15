@@ -58,7 +58,16 @@ namespace AlwaysGreen.BLL.Services
                 Courier c = _courierRepository.Find(Id);
                 c.Name = name;
                 c.PhoneNumber = phoneNumber;
-                c.Email = email;
+
+                //controllo email
+                if(c.Email == email) { c.Email = email; }
+                else
+                {
+                    bool isEmailExsisted = _commonServices.IsExistedEmail(email);
+                    if (isEmailExsisted) throw new Exception("The email exists into DB");
+                    else { c.Email = email; }
+                }
+
                 c.VATnumber = VATnumber;
                 c.Address = _commonServices.FindOrCreateAddress(address);
                 _courierRepository.Update(c);
