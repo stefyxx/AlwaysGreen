@@ -28,7 +28,7 @@ namespace AlwaysGreen.Domain.Entities
         public string ZipCode { get; set; }
         public string Country { get; set; }
 
-        #region FK
+        #region FK: aggiunte SOLO per far funzionare bene l'Include()
 
         public List<Location> Locations { get; set; }
         public List<Particular> Particulars { get; set; }

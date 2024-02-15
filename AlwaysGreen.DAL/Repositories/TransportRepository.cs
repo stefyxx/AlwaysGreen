@@ -23,19 +23,12 @@ namespace AlwaysGreen.DAL.Repositories
             return _table
                .Include(t => t.Deliveries)
                .Include(t => t.Emptybottles)
-               .Include(t => t.LocationsFrom
-                    //.Join(_addresses, lo => lo.AddressId, a => a.Id, (l, addr) => 
-                    //{ 
-                    //    l.Address = addr; 
-                    //    return l;
-                    //}
-                    //)
-               )
-               //.ThenInclude(l => l.Address)
-               .Include(t => t.LocationsTo)
-               //.ThenInclude(l => l.Address)
-               .Include(t => t.Courriers)
-               //.ThenInclude(c => c.Address)
+               .Include(t => t.LocationFrom)
+               .ThenInclude(l => l.Address)
+               .Include(t => t.LocationTo)
+               .ThenInclude(l => l.Address)
+               .Include(t => t.Courier)
+               .ThenInclude(c => c.Address)
                .ToList();
         }
         public Transport? Find(params object[] id)
@@ -43,11 +36,11 @@ namespace AlwaysGreen.DAL.Repositories
             return _table
                 .Include(t => t.Deliveries)
                 .Include(t => t.Emptybottles)
-                .Include(t => t.LocationsFrom)
+                .Include(t => t.LocationFrom)
                 .ThenInclude(l => l.Address)
-                .Include(t => t.LocationsTo)
+                .Include(t => t.LocationTo)
                 .ThenInclude(l => l.Address)
-                .Include(t => t.Courriers)
+                .Include(t => t.Courier)
                 .ThenInclude(c => c.Address)
                 .Where(t => t.Id == (int)id[0]).FirstOrDefault();
         }

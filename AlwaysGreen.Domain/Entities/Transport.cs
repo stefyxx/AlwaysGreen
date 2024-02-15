@@ -24,16 +24,16 @@ namespace AlwaysGreen.Domain.Entities
 
 
         #region FK
-        public int? LocationsFromId { get; set; }
-        [ForeignKey("TransportFromId")]
-        public Location? LocationsFrom { get; set; }
+        public int? LocationFromId { get; set; }
+        [ForeignKey("LocationFromId")]
+        public Location? LocationFrom { get; set; }
         public int? LocationsToId { get; set; }
-        [ForeignKey("TransportToId")]
-        public Location? LocationsTo { get; set; }
+        [ForeignKey("LocationsToId")]
+        public Location? LocationTo { get; set; }
 
         //puo' essere = ? perché é relaz 0-N
         public int? CourierId { get; set; }
-        [ForeignKey("TransportId")]
+        [ForeignKey("CourierId")]
         public Courier? Courier { get; set; }
 
         #endregion
