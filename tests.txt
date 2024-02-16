@@ -103,7 +103,7 @@ _______________________________________
   "companyName": "Ste",
   "phoneNumber": "12345",
   "roles": [
-    "Company"
+    "Store"
   ],
   "email": "user@example.com",
   "address": {
@@ -112,12 +112,12 @@ _______________________________________
     "apartment": null,
     "unit": null,
     "unitNumber": null,
-    "city": Anverse,
+    "city": "Anverse",
     "zipCode": "2000",
     "country": "Belgique"
   },
   "password": "TestTest",
-  "username": "CompanyTest",
+  "username": "StoreTest",
   "vaTnumber": "1234",
   "siret": {
     "siren": "123456",
@@ -128,4 +128,48 @@ _______________________________________
 }
 
 
+{
+  "agencyName": "steDepot",
+  "companyName": "SteDepot",
+  "phoneNumber": "12345",
+  "roles": [
+    "Depot"
+  ],
+  "email": "userDepot@example.com",
+  "address": {
+    "streetName": "test",
+    "streetNumber": "1",
+    "apartment": null,
+    "unit": null,
+    "unitNumber": null,
+    "city": "Bruxelles",
+    "zipCode": "1000",
+    "country": "Belgique"
+  },
+  "password": "Depodepot",
+  "username": "DepotTest010",
+  "vaTnumber": "1234",
+  "siret": {
+    "siren": "123456",
+    "nic": "078"
+  },
+  "isPickUpPoint": false,
+  "isStorePoint": false
+}
+______________________________________-
+{
+  "emptybottles": [
+    {
+      "typeName": "shampoo",
+      "quantity": 20
+    },
+    {
+      "typeName": "softener",
+      "quantity": 5
+    }
+  ],
+  "locationFromId": 1,
+  "locationToId": 2,
+  "courierId": 1
+}
   

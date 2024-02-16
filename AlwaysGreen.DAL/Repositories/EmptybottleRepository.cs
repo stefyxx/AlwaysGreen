@@ -46,6 +46,5 @@ namespace AlwaysGreen.DAL.Repositories
             }
         }
 
-        
     }
 }

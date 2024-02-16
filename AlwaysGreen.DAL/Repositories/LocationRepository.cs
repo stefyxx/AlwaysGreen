@@ -20,16 +20,17 @@ namespace AlwaysGreen.DAL.Repositories
         public List<Location> GetAll()
         {
             //error perché in context non ho DbSet di class abstract
-            //return _table
-            //    //.Include(a => a.Address)
-            //    .Where(t=> t.IsActive == true)
-            //    .OrderBy(t=> t.Email)
-            //    .ToList();
-            return base.FindAll().Join(_addresses, l => l.AddressId, a => a.Id, (l, a) =>
-            {
-                l.Address = a;
-                return l;
-            }).OrderBy(l => l.Email).ToList();
+            return _table
+                .Include(a => a.Address)
+                .Include(l => l.Login)
+                .Where(t => t.IsActive == true)
+                .OrderBy(t => t.Email)
+                .ToList();
+            //return base.FindAll().Join(_addresses, l => l.AddressId, a => a.Id, (l, a) =>
+            //{
+            //    l.Address = a;
+            //    return l;
+            //}).OrderBy(l => l.Email).ToList();
         }
     }
 }

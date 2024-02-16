@@ -12,20 +12,20 @@ namespace AlwaysGreen.DAL.Context
         public static IEnumerable<Emptybottle> InitEmptybottles() 
         {
             yield return new Emptybottle() { Id = 1, TypeName = "shampoo", Quantity = 10, Prix = 10};
-            yield return new Emptybottle() { Id = 1, TypeName = "dishwashingLiquid", Quantity = 10, Prix = 10 };
-            yield return new Emptybottle() { Id = 1, TypeName = "laundryDetergent", Quantity = 10, Prix = 10 };
-            yield return new Emptybottle() { Id = 1, TypeName = "softener", Quantity = 10, Prix = 10 };
+            yield return new Emptybottle() { Id = 2, TypeName = "dishwashingLiquid", Quantity = 10, Prix = 10 };
+            yield return new Emptybottle() { Id = 3, TypeName = "laundryDetergent", Quantity = 10, Prix = 10 };
+            yield return new Emptybottle() { Id = 4, TypeName = "softener", Quantity = 10, Prix = 10 };
         }
 
         public static IEnumerable<Address> InitAddresses()
         {
-            yield return new Address() { Id = 1, StreetName = "test", StreetNumber = "1", Apartment = null, Unit = null, UnitNumber = null, City = "Anverse", ZipCode = "2000", Country = "Belgique"};
-            yield return new Address() { Id = 1, StreetName = "ste", StreetNumber = "1", Apartment = null, Unit = null, UnitNumber = null, City = "Bruxelles", ZipCode = "1000", Country = "Belgique" };
+            yield return new Address() { Id = 1, StreetName = "test", StreetNumber = "10", Apartment = null, Unit = null, UnitNumber = null, City = "Anverse", ZipCode = "2000", Country = "Belgique"};
+            yield return new Address() { Id = 2, StreetName = "ste", StreetNumber = "1", Apartment = null, Unit = null, UnitNumber = null, City = "Bruxelles", ZipCode = "1000", Country = "Belgique" };
         }
 
         public static IEnumerable<Courier> InitCouriers()
         {
-            yield return new Courier() {  Id = 1, Name = "steCourier", PhoneNumber = "+32234567", Email = "courierUser@test.com", VATnumber = "1234", IsActive = true, AddressId = InitAddresses().ToArray()[0].Id };
+            yield return new Courier() {  Id = 1, Name = "TestCourier", PhoneNumber = "+32234567", Email = "courierUser@test.com", VATnumber = "1234", IsActive = true, AddressId = InitAddresses().ToArray()[0].Id };
         }
 
     }

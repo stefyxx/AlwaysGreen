@@ -17,9 +17,9 @@ namespace AlwaysGreen.Controllers
         {
             try
             {
-
-                List<Location> loctions = _locationServices.GetAll();
-                return Ok(loctions);
+                List<Location> datas = _locationServices.GetAll();
+                List< LocationResultDTO > result = datas.Select(Mappers.ToDTO).ToList();
+                return Ok(result);
             }
             catch (Exception ex) { return BadRequest(ex.Message); }
         }

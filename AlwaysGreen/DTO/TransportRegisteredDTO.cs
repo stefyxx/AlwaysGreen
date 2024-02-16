@@ -8,6 +8,7 @@ namespace AlwaysGreen.DTO
 
         //1- lista di bottiglie caricate nel trasporto
         public List<EmptybottleTransportedDTO> Emptybottles { get; set; }
+        //public List<EmptybottleEnvoyedDTO> Emptybottles { get; set; }
         //2- Tabella intermediaria x legare a OGNI emptibottleId, questo TransportId
 
         //3- da dove li prendo , x ora Store IsPickUpPoint= true

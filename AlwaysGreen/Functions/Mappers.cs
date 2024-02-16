@@ -75,7 +75,8 @@ namespace AlwaysGreen.Functions
                 CompanyName= data.CompanyName,
                 Roles = data.Roles.ToArray(),
                 Address = data.Address.ToDTO(),
-                Username = data.Login.Username,
+                //Username = data.Login.Username,
+                IsActive = data.IsActive,
             };
         }
         //public static Store ToDomain(this StoreDTO s)
@@ -159,8 +160,8 @@ namespace AlwaysGreen.Functions
                     };
 
                 }).ToList(),
-                LocationFrom = ToDTO(t.LocationFrom),
-                LocationTo = ToDTO(t.LocationTo),
+                LocationFrom = ToDTO(t.LocationFrom),//recupera Location con loginId e siretId senza entities: TODO
+                LocationTo = ToDTO(t.LocationTo),    //recupera Location con loginId e siretId senza entities: TODO
                 Courier = ToDTO(t.Courier)
             };
         }

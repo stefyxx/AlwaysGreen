@@ -1,4 +1,6 @@
-﻿using AlwaysGreen.BLL.Services;
+﻿
+
+using AlwaysGreen.BLL.Services;
 using AlwaysGreen.Domain.Entities;
 using AlwaysGreen.DTO;
 using AlwaysGreen.Functions;
@@ -41,8 +43,9 @@ namespace AlwaysGreen.Controllers
             {
 
                 List<Emptybottle> emptybottles = new List<Emptybottle>();
-                t.Emptybottles.ForEach(eB => {
-                    emptybottles.Add(eB.ToDomain()); 
+                t.Emptybottles.ForEach(eB =>
+                {
+                    emptybottles.Add(eB.ToDomain());
                 });
 
                 Transport data = _transportServices.Register(emptybottles, t.LocationFromId,t.LocationToId, t.CourierId);

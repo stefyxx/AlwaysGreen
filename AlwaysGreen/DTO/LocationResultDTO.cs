@@ -10,5 +10,7 @@ namespace AlwaysGreen.DTO
         public virtual RolesEnum[] Roles { get; set; }
         public AddressDTO Address { get; set; }
         public string Username { get; set; }
+        public bool IsActive { get; set; }
+
     }
 }
