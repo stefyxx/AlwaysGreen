@@ -38,8 +38,12 @@ namespace AlwaysGreen.DAL.Repositories
                 .Include(t => t.Emptybottles)
                 .Include(t => t.LocationFrom)
                 .ThenInclude(l => l.Address)
+                .Include(t => t.LocationFrom)
+                .ThenInclude(l => l.Login)
                 .Include(t => t.LocationTo)
                 .ThenInclude(l => l.Address)
+                .Include(t => t.LocationTo)
+                .ThenInclude(l => l.Login)
                 .Include(t => t.Courier)
                 .ThenInclude(c => c.Address)
                 .Where(t => t.Id == (int)id[0]).FirstOrDefault();

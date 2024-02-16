@@ -160,8 +160,8 @@ namespace AlwaysGreen.Functions
                     };
 
                 }).ToList(),
-                LocationFrom = ToDTO(t.LocationFrom),//recupera Location con loginId e siretId senza entities: TODO
-                LocationTo = ToDTO(t.LocationTo),    //recupera Location con loginId e siretId senza entities: TODO
+                LocationFrom = ToDTO(t.LocationFrom),//recupera Location con siretId senza entities: TODO
+                LocationTo = ToDTO(t.LocationTo),    //recupera Location con siretId senza entities: TODO
                 Courier = ToDTO(t.Courier)
             };
         }

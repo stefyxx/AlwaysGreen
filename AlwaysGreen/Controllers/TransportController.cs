@@ -21,8 +21,9 @@ namespace AlwaysGreen.Controllers
         {
             try
             {
-                List<Transport> loctions = _transportServices.GetAll();
-                return Ok(loctions);
+                List<Transport> datas = _transportServices.GetAll();
+                List<TransportResultDTO> result = datas.Select(Mappers.ToDTO).ToList();
+                return Ok(result);
             }
             catch (Exception ex) { return BadRequest(ex.Message); }
         }
