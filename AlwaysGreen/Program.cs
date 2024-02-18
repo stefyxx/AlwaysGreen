@@ -112,7 +112,6 @@ namespace AlwaysGreen
 
 
 
-
             //security
             builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
@@ -129,6 +128,18 @@ namespace AlwaysGreen
                     };
                 });
 
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAngularOrigins",
+                builder =>
+                {
+                    builder.WithOrigins(
+                                        "http://localhost:4200"
+                                        )
+                                        .AllowAnyHeader()
+                                        .AllowAnyMethod();
+                });
+            });
 
             var app = builder.Build();
 
@@ -140,6 +151,7 @@ namespace AlwaysGreen
             }
 
             app.UseHttpsRedirection();
+            
             //security
             //app.UseAuthentication();
             app.UseAuthorization();

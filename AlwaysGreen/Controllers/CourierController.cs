@@ -61,7 +61,7 @@ namespace AlwaysGreen.Controllers
 
         // PUT api/<CourierController>/5
         [HttpPut("update/{id}")]
-        [Authorize(Roles = "Depot")]
+        //[Authorize(Roles = "Depot")]
         public IActionResult Update([FromQuery]int? idRoute, [FromBody] CourierResultDTO c)
         {
             //int loginId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
@@ -76,8 +76,8 @@ namespace AlwaysGreen.Controllers
                 return BadRequest(ex.Message);
             }
         }
-        [HttpPut("Delete/{id}")]
-        [Authorize(Roles = "Depot")]
+        [HttpPut("delete/{id}")]
+        //[Authorize(Roles = "Depot")]
         public IActionResult Put([FromQuery] int id)
         {
             try
