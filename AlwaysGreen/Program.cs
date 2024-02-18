@@ -142,7 +142,7 @@ namespace AlwaysGreen
             });
 
             var app = builder.Build();
-
+            app.UseCors("AllowAngularOrigins");
             // Configure the HTTP request pipeline.
             if (app.Environment.IsDevelopment())
             {
