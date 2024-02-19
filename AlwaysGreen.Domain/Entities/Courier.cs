@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
@@ -15,7 +16,8 @@ namespace AlwaysGreen.Domain.Entities
         [Column(TypeName = "varchar(15)")]
         public string PhoneNumber { get; set; }
 
-        [Column(TypeName = "varchar(75)")]
+        //[Column(TypeName = "varchar(75)")]
+        [EmailAddress]
         public string Email { get; set; }
 
         //numéro de TVA
