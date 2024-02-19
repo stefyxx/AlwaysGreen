@@ -19,6 +19,7 @@ namespace AlwaysGreen.DAL.Repositories
            return _table
                 .Include(a=> a.Address)
                 .Include(t=> t.Transports)
+                .Where(c=> c.IsActive == true)
                 .ToList();
         }
 
