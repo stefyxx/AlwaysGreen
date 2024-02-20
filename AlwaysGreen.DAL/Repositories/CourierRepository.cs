@@ -25,7 +25,9 @@ namespace AlwaysGreen.DAL.Repositories
 
         public Courier? Find(params object[] id)
         {
-            throw new NotImplementedException();
+            return _table
+                .Include(a=> a.Address)
+                .FirstOrDefault(c => c.Id == (int)id[0]);
         }
 
         public Courier? FindIsExisting(Courier e)
@@ -39,7 +41,7 @@ namespace AlwaysGreen.DAL.Repositories
 
         public void Delete(Courier e)
         {
-            throw new NotImplementedException();
+            _table.Remove(e);
         }
 
     }

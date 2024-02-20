@@ -6,7 +6,7 @@ namespace AlwaysGreen.BLL.Services
 {
     public class CourierServices(ICourierRepository _courierRepository, CommonServices _commonServices)
     {
-        public List<Courier> GetAll() { return _courierRepository.GetAll();}
+        public List<Courier> GetAll() { return _courierRepository.GetAll(); }
 
         public Courier Register(string name, string phoneNumber, string email, string VATnumber, Address address)
         {
@@ -23,7 +23,7 @@ namespace AlwaysGreen.BLL.Services
                     PhoneNumber = phoneNumber,
                     Email = email,
                     VATnumber = VATnumber,
-                    IsActive= true,
+                    IsActive = true,
                     Address = _commonServices.FindOrCreateAddress(address),
                 };
                 Courier c = _courierRepository.Add(newCourrier);
@@ -50,17 +50,17 @@ namespace AlwaysGreen.BLL.Services
             //else { throw new KeyNotFoundException(); }
         }
 
-        public Courier? MyUpdate(int? idRoute,int Id, string name, string phoneNumber, string email, string VATnumber, Address address)
+        public Courier? MyUpdate(int idRoute, string name, string phoneNumber, string email, string VATnumber, Address address)
         {
-            if (idRoute != 0 || idRoute != Id) throw new Exception("id route diverso da id Entity");
-            else if (idRoute == 0 || idRoute == Id)
+
+            Courier? c = _courierRepository.Find(idRoute);
+            if (c != null)
             {
-                Courier c = _courierRepository.Find(Id);
                 c.Name = name;
                 c.PhoneNumber = phoneNumber;
 
                 //controllo email
-                if(c.Email == email) { c.Email = email; }
+                if (c.Email == email) { c.Email = email; }
                 else
                 {
                     bool isEmailExsisted = _commonServices.IsExistedEmail(email);
@@ -75,8 +75,7 @@ namespace AlwaysGreen.BLL.Services
             }
             else
             {
-                //(idRoute == 0 || idRoute != Id)
-                throw new Exception("id route diverso da id Entity");
+                throw new Exception("id non corrisponde a nessuna entity");
             }
         }
 

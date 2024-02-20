@@ -46,7 +46,7 @@ namespace AlwaysGreen.Controllers
         // POST api/<CourierController>
         [HttpPost("insert")]
         //[Authorize(Roles = "Depot")]
-        public IActionResult Post([FromForm] CourierDTO c) //[FromBody] CourierDTO c
+        public IActionResult Post([FromBody] CourierDTO c) //[FromForm] CourierDTO c
         {
             try
             {
@@ -60,14 +60,14 @@ namespace AlwaysGreen.Controllers
         }
 
         // PUT api/<CourierController>/5
-        [HttpPut("update/{id}")]
+        [HttpPut("update/{idRoute}")]
         //[Authorize(Roles = "Depot")]
-        public IActionResult Update([FromRoute]int? idRoute, [FromBody] CourierResultDTO c)
+        public IActionResult Update([FromRoute]int idRoute, [FromBody] CourierResultDTO c)
         {
             //int loginId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
             try
             {
-                Courier? updatedC= _courierServices.MyUpdate(idRoute, c.Id, c.Name, c.PhoneNumber, c.Email, c.VATnumber, Mappers.ToDomain(c.Address));
+                Courier? updatedC= _courierServices.MyUpdate(idRoute, c.Name, c.PhoneNumber, c.Email, c.VATnumber, Mappers.ToDomain(c.Address));
                 CourierDTO cUpdated = Mappers.ToDTO(updatedC);
                 return Ok(cUpdated);
             }
