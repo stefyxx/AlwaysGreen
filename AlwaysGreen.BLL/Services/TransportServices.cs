@@ -8,6 +8,7 @@ namespace AlwaysGreen.BLL.Services
     {
         public List<Transport> GetAll() { return _transportRepository.GetAll(); }
 
+        //[Authorize(Roles = "Depot")]
         public Transport Register(List<Emptybottle> emptybottles, int locationFromId, int locationToId, int courierId)
         {
             using TransactionScope scope = new TransactionScope();
