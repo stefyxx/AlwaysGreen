@@ -42,12 +42,17 @@ namespace AlwaysGreen.Controllers
         {
             try
             {
-
+                //TODO: optimize the code --> separate function
                 List<Emptybottle> emptybottles = new List<Emptybottle>();
                 t.Emptybottles.ForEach(eB =>
                 {
-                    emptybottles.Add(eB.ToDomain());
+                    if (eB.Quantity > 0)
+                    {
+                        emptybottles.Add(eB.ToDomain());
+                    }
+                    else throw new ArgumentOutOfRangeException("It's impossible to add a negative quantity!");
                 });
+                if (emptybottles.Count == 0) throw new Exception("It is impossible to organize transport if you don't have empty bottles to transport!");
 
                 Transport data = _transportServices.Register(emptybottles, t.LocationFromId,t.LocationToId, t.CourierId);
                 TransportResultDTO result = Mappers.ToDTO(data);
